@@ -1,7 +1,7 @@
 <?php
 
-require '../../functions/db.php';
-require '../../functions/utility.php';
+require_once '../../functions/db.php';
+require_once '../../functions/utility.php';
 
 header('Content-Type: application/json; charset=utf-8');
 session_start();

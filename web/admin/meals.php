@@ -1,6 +1,6 @@
 <?php
 
-require '../functions/db.php';
+require_once '../functions/db.php';
 
 $db = new Database();
 $soups = $db->get_meals('soup');

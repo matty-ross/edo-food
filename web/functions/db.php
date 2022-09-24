@@ -1,5 +1,7 @@
 <?php
 
+require_once 'utility.php';
+
 class Database
 {
     private $db = null;
@@ -54,10 +56,10 @@ class Database
         ;";
 
         $q = $this->db->query($query);
-        $count = $q->fetch_assoc()['count'];
+        $row = $q->fetch_assoc();
         $q->free_result();
 
-        return intval($count) !== 0;
+        return intval($row['count']) !== 0;
     }
 
     public function is_user_admin($user_id)
@@ -73,10 +75,10 @@ class Database
         ;";
 
         $q = $this->db->query($query);
-        $admin = $q->fetch_assoc()['admin'];
+        $row = $q->fetch_assoc();
         $q->free_result();
 
-        return $admin === 'Y';
+        return $row['admin'] === 'Y';
     }
 
     public function get_people()
@@ -145,32 +147,32 @@ class Database
         SET
             `people`.`last_edit` = CURRENT_TIMESTAMP()
         ";
-        if (!in_array($new_id, [null, ''], true))
+        if (is_valid_number($new_id))
         {
             $new_id = $this->db->real_escape_string($new_id);
             $query .= ", `people`.`id` = $new_id\n";
         }
-        if (!in_array($full_name, [null, ''], true))
+        if (is_valid_string($full_name))
         {
             $full_name = $this->db->real_escape_string($full_name);
             $query .= ", `people`.`full_name` = TRIM('$full_name')\n";
         }
-        if (!in_array($email, [null, ''], true))
+        if (is_valid_string($email))
         {
             $email = $this->db->real_escape_string($email);
             $query .= ", `people`.`email` = TRIM('$email')\n";
         }
-        if (!in_array($password, [null, ''], true))
+        if (is_valid_string($password))
         {
             $password = $this->db->real_escape_string($password);
             $query .= ", `people`.`password` = TRIM('$password')\n";
         }
-        if (!in_array($add_credit, [null, ''], true))
+        if (is_valid_number($add_credit))
         {
             $add_credit = $this->db->real_escape_string($add_credit);
             $query .= ", `people`.`credit` = `people`.`credit` + $add_credit\n";
         }
-        if (in_array($admin, [true, false], true))
+        if (is_valid_bool($admin))
         {
             $admin = $admin ? 'Y' : 'N';
             $query .= ", `people`.`admin` = TRIM('$admin')\n";
@@ -202,7 +204,7 @@ class Database
             `meals`.`amount` AS `amount`
         FROM `meals`
         ";
-        if (!in_array($meal_type, [null, ''], true))
+        if (is_valid_meal_type($meal_type))
         {
             $query .= "WHERE `meals`.`meal_type` = TRIM('$meal_type')";
         }
@@ -255,17 +257,17 @@ class Database
         SET
             `meals`.`last_edit` = CURRENT_TIMESTAMP()
         ";
-        if (!in_array($name, [null, ''], true))
+        if (is_valid_string($name))
         {
             $name = $this->db->real_escape_string($name);
             $query .= ", `meals`.`name` = TRIM('$name')\n";
         }
-        if (!in_array($price, [null, ''], true))
+        if (is_valid_number($price))
         {
             $price = $this->db->real_escape_string($price);
             $query .= ", `meals`.`price` = $price\n";
         }
-        if (!in_array($amount, [null, ''], true))
+        if (is_valid_number($amount))
         {
             $amount = $this->db->real_escape_string($amount);
             $query .= ", `meals`.`amount` = $amount\n";
