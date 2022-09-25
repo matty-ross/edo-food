@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `allergens` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table edo_food.allergens: ~8 rows (approximately)
 DELETE FROM `allergens`;
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `meals` (
   `meal_type` enum('soup','main_dish') NOT NULL,
   `last_edit` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table edo_food.meals: ~14 rows (approximately)
 DELETE FROM `meals`;
@@ -66,7 +66,8 @@ INSERT INTO `meals` (`id`, `name`, `price`, `amount`, `meal_type`, `last_edit`) 
 	(12, 'Korytnačia polievka', 0.00, 2.00, 'soup', '2022-09-22 18:53:45'),
 	(18, 'Šnicel', 6.00, 500.00, 'main_dish', '2022-09-22 19:32:12'),
 	(19, 'Šutelica', 1.00, 0.50, 'soup', '2022-09-22 18:41:21'),
-	(20, 'Bravčové výpečky', 5.00, 200.00, 'main_dish', '2022-09-22 18:41:21');
+	(20, 'Bravčové výpečky', 5.00, 200.00, 'main_dish', '2022-09-22 18:41:21'),
+	(26, 'Hovädzí steak s hranolkami', 6.00, 350.00, 'main_dish', '2022-09-25 19:50:48');
 /*!40000 ALTER TABLE `meals` ENABLE KEYS */;
 
 -- Dumping structure for table edo_food.meals_allergens
@@ -79,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `meals_allergens` (
   KEY `allergen` (`allergen`),
   CONSTRAINT `meals_allergens_allergen` FOREIGN KEY (`allergen`) REFERENCES `allergens` (`id`),
   CONSTRAINT `meals_allergens_meal` FOREIGN KEY (`meal`) REFERENCES `meals` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table edo_food.meals_allergens: ~9 rows (approximately)
 DELETE FROM `meals_allergens`;
@@ -93,7 +94,10 @@ INSERT INTO `meals_allergens` (`id`, `meal`, `allergen`) VALUES
 	(10, 18, 2),
 	(11, 1, 5),
 	(12, 1, 2),
-	(13, 1, 3);
+	(13, 1, 3),
+	(14, 26, 1),
+	(15, 26, 3),
+	(16, 26, 8);
 /*!40000 ALTER TABLE `meals_allergens` ENABLE KEYS */;
 
 -- Dumping structure for table edo_food.menu_items
