@@ -109,3 +109,28 @@ function deleteMeal(id) {
 
     sendAndRespond("api/admin/delete-meal.php", data);
 }
+
+function addAllergen() {
+    const data = {
+        name: document.querySelector("#add-allergen-form #allergen-name").value
+    };
+
+    sendAndRespond("api/admin/add-allergen.php", data);
+}
+
+function updateAllergen(id) {
+    const data = {
+        id: id,
+        name: document.querySelector(`#allergen-name-${id}`).value
+    };
+
+    sendAndRespond("api/admin/update-allergen.php", data);
+}
+
+function deleteAllergen(id) {
+    const data = {
+        id: id
+    };
+
+    sendAndRespond("api/admin/delete-allergen.php", data);
+}

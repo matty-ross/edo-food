@@ -5,6 +5,7 @@ require_once '../functions/db.php';
 $db = new Database();
 $soups = $db->get_meals('soup');
 $main_dishes = $db->get_meals('main_dish');
+$allergens = $db->get_allergens();
 
 ?>
 <hr>
@@ -27,6 +28,16 @@ $main_dishes = $db->get_meals('main_dish');
     </div>
     <div>
         <button onclick="addMeal()">Pridať</button>
+    </div>
+</div>
+<hr>
+<div id="add-allergen-form">
+    <h2>Pridať alergén</h2>
+    <div>
+        <input type="text" id="allergen-name" placeholder="Názov...">
+    </div>
+    <div>
+        <button onclick="addAllergen()">Pridať</button>
     </div>
 </div>
 <hr>
@@ -107,6 +118,43 @@ foreach ($main_dishes as $main_dish)
     echo("<td>\n");
     echo("<button onclick=\"updateMeal($id)\">Upraviť</button>\n");
     echo("<button onclick=\"deleteMeal($id)\">Vymazať</button>\n");
+    echo("</td>\n");
+
+    echo("<tr>\n");
+}
+
+?>
+    </tbody>
+</table>
+<hr>
+<table>
+    <caption>Prehľad alergénov</caption>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Názov</th>
+        </tr>
+    </thead>
+    <tbody>
+<?php
+
+foreach ($allergens as $allergen)
+{
+    $id = $allergen['id'];
+    
+    echo("<tr>\n");
+    
+    echo("<td>\n");
+    echo("{$allergen['id']}\n");
+    echo("</td>\n");
+
+    echo("<td>\n");
+    echo("<input type=\"text\" id=\"allergen-name-$id\" value=\"{$allergen['name']}\">\n");
+    echo("</td>\n");
+
+    echo("<td>\n");
+    echo("<button onclick=\"updateAllergen($id)\">Upraviť</button>\n");
+    echo("<button onclick=\"deleteAllergen($id)\">Vymazať</button>\n");
     echo("</td>\n");
 
     echo("<tr>\n");

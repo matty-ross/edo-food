@@ -214,7 +214,9 @@ class Database
         $q = $this->db->query($query);
         while ($row = $q->fetch_assoc())
         {
-            $meals[] = $row;
+            $meal = $row;
+            $meal['allergens'] = $this->get_meal_allergens($meal['id']);
+            $meals[] = $meal;
         }
         $q->free_result();
 
@@ -284,6 +286,96 @@ class Database
         $query =
         "DELETE FROM `meals`
         WHERE `meals`.`id` = $id
+        ;";
+
+        return $this->db->query($query);
+    }
+
+    public function get_allergens()
+    {
+        $query =
+        "SELECT
+            `allergens`.`id` AS `id`,
+            `allergens`.`name` AS `name`
+        FROM `allergens`
+        ;";
+
+        $allergens = [];
+
+        $q = $this->db->query($query);
+        while ($row = $q->fetch_assoc())
+        {
+            $allergens[] = $row;
+        }
+        $q->free_result();
+
+        return $allergens;
+    }
+
+    private function get_meal_allergens($id)
+    {
+        $id = $this->db->real_escape_string($id);
+
+        $query =
+        "SELECT
+            `allergens`.`id` AS `id`,
+            `allergens`.`name` AS `name`
+        FROM `allergens`
+            JOIN `meals_allergens` ON (`meals_allergens`.`allergen` = `allergens`.`id`)
+        WHERE `meals_allergens`.`meal` = $id
+        ;";
+
+        $allergens = [];
+
+        $q = $this->db->query($query);
+        while ($row = $q->fetch_assoc())
+        {
+            $allergens[] = $row;
+        }
+        $q->free_result();
+
+        return $allergens;
+    }
+
+    public function add_allergen($name)
+    {
+        $name = $this->db->real_escape_string($name);
+        
+        $query =
+        "INSERT INTO `allergens`
+        (
+            `allergens`.`name`
+        )
+        VALUES
+        (
+            TRIM('$name')
+        )
+        ;";
+
+        return $this->db->query($query);
+    }
+
+    public function update_allergen($id, $name)
+    {
+        $id = $this->db->real_escape_string($id);
+        $name = $this->db->real_escape_string($name);
+
+        $query =
+        "UPDATE `allergens`
+        SET `allergens`.`name` = TRIM('$name')
+        WHERE `allergens`.`id` = $id
+        ;";
+
+        return $this->db->query($query);
+    }
+
+    public function delete_allergen($id)
+    {
+        $id = $this->db->real_escape_string($id);
+
+        $query =
+        "DELETE FROM `allergens`
+        WHERE `allergens`.`id` = $id
         ;";
 
         return $this->db->query($query);
