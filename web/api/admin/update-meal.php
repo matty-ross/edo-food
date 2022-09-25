@@ -21,6 +21,7 @@ $id = $json->id ?? null;
 $name = $json->name ?? null;
 $price = $json->price ?? null;
 $amount = $json->amount ?? null;
+$allergens = $json->allergens ?? [];
 
 if (!is_valid_number($id))
 {
@@ -30,7 +31,7 @@ if (!is_valid_number($id))
     die;
 }
 
-if ($db->update_meal($id, $name, $price, $amount))
+if ($db->update_meal($id, $name, $price, $amount, $allergens))
 {
     send_json_response([
         'message' => 'Jedlo upravené.',

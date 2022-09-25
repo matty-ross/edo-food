@@ -21,12 +21,14 @@ $name = $json->name ?? null;
 $price = $json->price ?? null;
 $amount = $json->amount ?? null;
 $meal_type = $json->mealType ?? null;
+$allergens = $json->allergens ?? [];
 
 if (
     !is_valid_string($name) ||
     !is_valid_number($price) ||
     !is_valid_number($amount) ||
-    !is_valid_meal_type($meal_type)
+    !is_valid_meal_type($meal_type) ||
+    !is_valid_numeric_array($allergens)
 )
 {
     send_json_response([
@@ -35,7 +37,7 @@ if (
     die;
 }
 
-if ($db->add_meal($name, $price, $amount, $meal_type))
+if ($db->add_meal($name, $price, $amount, $meal_type, $allergens))
 {
     send_json_response([
         'message' => 'Jedlo pridané.',

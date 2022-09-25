@@ -52,6 +52,22 @@ function is_valid_bool($value)
     return in_array($value, [true, false]);
 }
 
+function is_valid_numeric_array($values)
+{
+    if (!is_array($values))
+    {
+        return false;
+    }
+    foreach ($values as $value)
+    {
+        if (!is_valid_number($value))
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
 function is_valid_meal_type($meal_type)
 {
     return

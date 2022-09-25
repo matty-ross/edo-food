@@ -81,11 +81,20 @@ async function showMeals() {
 }
 
 function addMeal() {
+    const getAllergens = () => {
+        let allergens = [];
+        for (const allergen of document.querySelector("#add-meal-form #allergens").selectedOptions) {
+            allergens.push(allergen.value);
+        }
+        return allergens;
+    };
+    
     const data = {
         name: document.querySelector("#add-meal-form #name").value,
         price: document.querySelector("#add-meal-form #price").value,
         amount: document.querySelector("#add-meal-form #amount").value,
-        mealType: document.querySelector("#add-meal-form #meal-type").value
+        mealType: document.querySelector("#add-meal-form #meal-type").value,
+        allergens: getAllergens()
     };
 
     sendAndRespond("api/admin/add-meal.php", data);

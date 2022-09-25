@@ -27,6 +27,18 @@ $allergens = $db->get_allergens();
         </select>
     </div>
     <div>
+        <select id="allergens" multiple>
+<?php
+
+foreach ($allergens as $allergen)
+{
+    echo("<option value=\"{$allergen['id']}\">{$allergen['name']}</option>\n");
+}
+
+?>
+        </select>
+    </div>
+    <div>
         <button onclick="addMeal()">Pridať</button>
     </div>
 </div>
@@ -48,6 +60,7 @@ $allergens = $db->get_allergens();
             <th>Názov polievky</th>
             <th>Cena (&euro;)</th>
             <th>Objem (l)</th>
+            <th>Alergény</th>
             <th></th>
         </tr>
     </thead>
@@ -57,6 +70,11 @@ $allergens = $db->get_allergens();
 foreach ($soups as $soup)
 {
     $id = $soup['id'];
+    $soup_allergen_ids = [];
+    foreach ($soup['allergens'] as $soup_allergen)
+    {
+        $soup_allergen_ids[] = $soup_allergen['id'];
+    }
     
     echo("<tr>\n");
     
@@ -70,6 +88,16 @@ foreach ($soups as $soup)
 
     echo("<td>\n");
     echo("<input type=\"number\" id=\"meal-amount-$id\" value=\"{$soup['amount']}\">\n");
+    echo("</td>\n");
+
+    echo("<td>\n");
+    echo("<select id=\"meal-allergens-$id\" multiple>\n");
+    foreach ($allergens as $allergen)
+    {
+        $selected = in_array($allergen['id'], $soup_allergen_ids) ? 'selected' : '';
+        echo("<option value=\"{$allergen['id']}\" $selected>{$allergen['name']}</option>\n");
+    }
+    echo("</select>\n");
     echo("</td>\n");
 
     echo("<td>\n");
@@ -91,6 +119,7 @@ foreach ($soups as $soup)
             <th>Názov jedla</th>
             <th>Cena (&euro;)</th>
             <th>Hmotnosť (g)</th>
+            <th>Alergény</th>
             <th></th>
         </tr>
     </thead>
@@ -100,6 +129,11 @@ foreach ($soups as $soup)
 foreach ($main_dishes as $main_dish)
 {
     $id = $main_dish['id'];
+    $main_dish_allergen_ids = [];
+    foreach ($main_dish['allergens'] as $main_dish_allergen)
+    {
+        $main_dish_allergen_ids[] = $main_dish_allergen['id'];
+    }
     
     echo("<tr>\n");
     
@@ -113,6 +147,16 @@ foreach ($main_dishes as $main_dish)
 
     echo("<td>\n");
     echo("<input type=\"number\" id=\"meal-amount-$id\" value=\"{$main_dish['amount']}\">\n");
+    echo("</td>\n");
+
+    echo("<td>\n");
+    echo("<select id=\"meal-allergens-$id\" multiple>\n");
+    foreach ($allergens as $allergen)
+    {
+        $selected = in_array($allergen['id'], $main_dish_allergen_ids) ? 'selected' : '';
+        echo("<option value=\"{$allergen['id']}\" $selected>{$allergen['name']}</option>\n");
+    }
+    echo("</select>\n");
     echo("</td>\n");
 
     echo("<td>\n");

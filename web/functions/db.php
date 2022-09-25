@@ -223,7 +223,7 @@ class Database
         return $meals;
     }
 
-    public function add_meal($name, $price, $amount, $meal_type)
+    public function add_meal($name, $price, $amount, $meal_type, $allergens)
     {
         $name = $this->db->real_escape_string($name);
         $price = $this->db->real_escape_string($price);
@@ -247,10 +247,14 @@ class Database
         )
         ;";
 
-        return $this->db->query($query);
+        if (!$this->db->query($query))
+        {
+            return false;
+        }
+        return $this->add_meal_allergens($this->db->insert_id, $allergens);
     }
 
-    public function update_meal($id, $name, $price, $amount)
+    public function update_meal($id, $name, $price, $amount, $allergens)
     {
         $id = $this->db->real_escape_string($id);
         
@@ -276,7 +280,14 @@ class Database
         }
         $query .= "WHERE `meals`.`id` = $id;";
 
-        return $this->db->query($query);
+        if (
+            !is_valid_numeric_array($allergens) ||
+            !$this->db->query($query)
+        )
+        {
+            return false;
+        }
+        return $this->update_meal_allergens($id, $allergens);
     }
 
     public function delete_meal($id)
@@ -288,6 +299,10 @@ class Database
         WHERE `meals`.`id` = $id
         ;";
 
+        if (!$this->delete_meal_allergens($id))
+        {
+            return false;
+        }
         return $this->db->query($query);
     }
 
@@ -312,9 +327,9 @@ class Database
         return $allergens;
     }
 
-    private function get_meal_allergens($id)
+    private function get_meal_allergens($meal_id)
     {
-        $id = $this->db->real_escape_string($id);
+        $meal_id = $this->db->real_escape_string($meal_id);
 
         $query =
         "SELECT
@@ -322,7 +337,7 @@ class Database
             `allergens`.`name` AS `name`
         FROM `allergens`
             JOIN `meals_allergens` ON (`meals_allergens`.`allergen` = `allergens`.`id`)
-        WHERE `meals_allergens`.`meal` = $id
+        WHERE `meals_allergens`.`meal` = $meal_id
         ;";
 
         $allergens = [];
@@ -355,6 +370,29 @@ class Database
         return $this->db->query($query);
     }
 
+    private function add_meal_allergens($meal_id, $allergens)
+    {
+        $meal_id = $this->db->real_escape_string($meal_id);
+
+        $query =
+        "INSERT INTO `meals_allergens`
+        (
+            `meals_allergens`.`meal`,
+            `meals_allergens`.`allergen`
+        )
+        VALUES
+        ";
+        $values = [];
+        foreach ($allergens as $allergen)
+        {
+            $allergen = $this->db->real_escape_string($allergen);
+            $values[] = "($meal_id, $allergen)\n";
+        }
+        $query .= implode(',', $values);   
+
+        return $this->db->query($query);
+    }
+
     public function update_allergen($id, $name)
     {
         $id = $this->db->real_escape_string($id);
@@ -369,6 +407,15 @@ class Database
         return $this->db->query($query);
     }
 
+    private function update_meal_allergens($meal_id, $allergens)
+    {
+        if (!$this->delete_meal_allergens($meal_id))
+        {
+            return false;
+        }
+        return $this->add_meal_allergens($meal_id, $allergens);
+    }
+
     public function delete_allergen($id)
     {
         $id = $this->db->real_escape_string($id);
@@ -376,6 +423,18 @@ class Database
         $query =
         "DELETE FROM `allergens`
         WHERE `allergens`.`id` = $id
+        ;";
+
+        return $this->db->query($query);
+    }
+
+    private function delete_meal_allergens($meal_id)
+    {
+        $meal_id = $this->db->real_escape_string($meal_id);
+
+        $query =
+        "DELETE FROM `meals_allergens`
+        WHERE `meals_allergens`.`meal` = $meal_id
         ;";
 
         return $this->db->query($query);
