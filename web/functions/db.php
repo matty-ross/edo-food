@@ -201,11 +201,13 @@ class Database
             `meals`.`id` AS `id`,
             `meals`.`name` AS `name`,
             `meals`.`price` AS `price`,
-            `meals`.`amount` AS `amount`
+            `meals`.`amount` AS `amount`,
+            `meals`.`meal_type` AS `meal_type`
         FROM `meals`
         ";
         if (is_valid_meal_type($meal_type))
         {
+            $meal_type = $this->db->real_escape_string($meal_type);
             $query .= "WHERE `meals`.`meal_type` = TRIM('$meal_type')";
         }
 
@@ -438,6 +440,31 @@ class Database
         ;";
 
         return $this->db->query($query);
+    }
+
+    public function get_menu_items($date = null, $meal_type = null)
+    {
+        $query =
+        "SELECT
+            `meals`.`id` AS `id`,
+            `meals`.`name` AS `name`,
+            `meals`.`price` AS `price`,
+            `meals`.`amount` AS `amount`,
+            `meals`.`meal_type` AS `meal_type`
+        FROM `meals`
+            JOIN `menu_items` ON (`menu_items`.`meal` = `meals`.`id`)
+        WHERE 1
+        ";
+        if (is_valid_date($date))
+        {
+            $date = $this->db->real_escape_string($date);
+            $query .= "AND DATE(`menu_items`.`date`) = DATE('$date')\n";
+        }
+        if (is_valid_meal_type($meal_type))
+        {
+            $meal_type = $this->db->real_escape_string($meal_type);
+            $query .= "AND `meals`.`meal_type` = TRIM('$meal_type')\n";
+        }
     }
 }
 
