@@ -52,6 +52,19 @@ function is_valid_bool($value)
     return in_array($value, [true, false]);
 }
 
+function is_valid_date($value)
+{
+    if (!is_valid_string($value))
+    {
+        return false;
+    }
+    
+    // https://www.codexworld.com/how-to/validate-date-input-string-in-php/
+    $format = 'Y-m-d';
+    $d = DateTime::createFromFormat($format, $value);
+    return $d && $d->format($format) === $value;
+}
+
 function is_valid_numeric_array($values)
 {
     if (!is_array($values))
@@ -68,11 +81,11 @@ function is_valid_numeric_array($values)
     return true;
 }
 
-function is_valid_meal_type($meal_type)
+function is_valid_meal_type($value)
 {
     return
-        is_valid_string($meal_type) &&
-        in_array($meal_type, ['soup', 'main_dish'], true);
+        is_valid_string($value) &&
+        in_array($value, ['soup', 'main_dish'], true);
 }
 
 ?>

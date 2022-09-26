@@ -10,7 +10,7 @@ class Database
     {
         $host = 'localhost';
         $user = 'root';
-        $password = 'root';
+        $password = '';
         $database = 'edo_food';
         
         $this->db = new mysqli($host, $user, $password, $database);
@@ -446,11 +446,12 @@ class Database
     {
         $query =
         "SELECT
-            `meals`.`id` AS `id`,
-            `meals`.`name` AS `name`,
-            `meals`.`price` AS `price`,
-            `meals`.`amount` AS `amount`,
-            `meals`.`meal_type` AS `meal_type`
+            `meals`.`id` AS `meal_id`,
+            `meals`.`name` AS `meal_name`,
+            `meals`.`price` AS `meal_price`,
+            `meals`.`amount` AS `meal_amount`,
+            `meals`.`meal_type` AS `meal_meal_type`,
+            `menu_items`.`date` AS `date`
         FROM `meals`
             JOIN `menu_items` ON (`menu_items`.`meal` = `meals`.`id`)
         WHERE 1
@@ -465,6 +466,19 @@ class Database
             $meal_type = $this->db->real_escape_string($meal_type);
             $query .= "AND `meals`.`meal_type` = TRIM('$meal_type')\n";
         }
+
+        $menu_items = [];
+
+        $q = $this->db->query($query);
+        while ($row = $q->fetch_assoc())
+        {
+            $menu_item = $row;
+            $menu_item['allergens'] = $this->get_meal_allergens($menu_item['meal_id']);
+            $menu_items[] = $menu_item;
+        }
+        $q->free_result();
+
+        return $menu_items;
     }
 }
 
