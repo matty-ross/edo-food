@@ -17,7 +17,7 @@ async function sendAndRespond(url, data) {
         location = json.goto;
     }
     if (json.refresh) {
-        location.reload(true);
+        location.reload();
     }
 }
 
@@ -33,11 +33,6 @@ function login() {
 
 function logout() {
     sendAndRespond("api/logout.php", null);
-}
-
-async function showPeople() {
-    const response = await fetch("admin/people.php");
-    document.querySelector("#admin-settings").innerHTML = await response.text();
 }
 
 function addPerson() {
@@ -75,11 +70,6 @@ function deletePerson(id) {
     sendAndRespond("api/admin/delete-person.php", data);
 }
 
-async function showMeals() {
-    const response = await fetch("admin/meals.php");
-    document.querySelector("#admin-settings").innerHTML = await response.text();
-}
-
 function addMeal() {
     const getAllergens = () => {
         let allergens = [];
@@ -101,11 +91,20 @@ function addMeal() {
 }
 
 function updateMeal(id) {
+    const getAllergens = () => {
+        let allergens = [];
+        for (const allergen of document.querySelector(`#meal-allergens-${id}`).selectedOptions) {
+            allergens.push(allergen.value);
+        }
+        return allergens;
+    };
+
     const data = {
         id: id,
         name: document.querySelector(`#meal-name-${id}`).value,
         price: document.querySelector(`#meal-price-${id}`).value,
-        amount: document.querySelector(`#meal-amount-${id}`).value
+        amount: document.querySelector(`#meal-amount-${id}`).value,
+        allergens: getAllergens()
     };
 
     sendAndRespond("api/admin/update-meal.php", data);

@@ -1,6 +1,6 @@
 <?php
 
-require_once '../functions/db.php';
+require_once 'functions/db.php';
 
 $db = new Database();
 $people = $db->get_people();

@@ -32,23 +32,36 @@ if (!is_admin_logged_in($db))
 }
 else
 {
+
 ?>
         <button onclick="logout()">Odhlásiť sa</button>
         <h1>Admin</h1>
         <nav>
             <div>
-                <a href="javascript:showPeople()">Prehľad stravníkov</a>
+                <a href="?page=people">Prehľad stravníkov</a>
             </div>
             <div>
-                <a href="javascript:showMeals()">Prehľad jedál</a>
+                <a href="?page=meals">Prehľad jedál</a>
             </div>
             <div>
-                <a href="#">Menu</a>
+                <a href="?page=menu">Menu</a>
             </div>
         </nav>
-        <output id="admin-settings"></output>
 <?php
+
+    $page = $_GET['page'] ?? null;
+    switch ($page)
+    {
+    case 'people':
+        include 'admin/people.php';
+        break;
+
+    case 'meals':
+        include 'admin/meals.php';
+        break;
+    }
 }
+
 ?>
     </body>
 </html>

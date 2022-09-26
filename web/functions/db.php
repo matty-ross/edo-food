@@ -10,7 +10,7 @@ class Database
     {
         $host = 'localhost';
         $user = 'root';
-        $password = '';
+        $password = 'root';
         $database = 'edo_food';
         
         $this->db = new mysqli($host, $user, $password, $database);
@@ -388,7 +388,7 @@ class Database
             $allergen = $this->db->real_escape_string($allergen);
             $values[] = "($meal_id, $allergen)\n";
         }
-        $query .= implode(',', $values);   
+        $query .= implode(',', $values);
 
         return $this->db->query($query);
     }
