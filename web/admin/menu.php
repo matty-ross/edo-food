@@ -1,17 +1,24 @@
 <?php
 
 require_once 'functions/db.php';
+require_once 'functions/utility.php';
+
+$date = $_GET['date'] ?? null;
+$date = is_valid_date($date) ? $date : date('Y-m-d');
 
 $db = new Database();
 $soups = $db->get_meals('soup');
-$menu_soups = $db->get_menu_items(null, 'soup');
+$menu_soups = $db->get_menu_items($date, 'soup');
 $main_dishes = $db->get_meals('main_dish');
-$menu_main_dishes = $db->get_menu_items(null, 'main_dish');
+$menu_main_dishes = $db->get_menu_items($date, 'main_dish');
 
 ?>
 <hr>
 <div>
-    <input type="date">
+    <form method="get">
+        <input type="date" id="date" name="date" value="<?php echo($date); ?>" oninput="this.form.submit()">
+        <input type="hidden" name="page" value="menu">
+    </form>
 </div>
 <hr>
 <div id="add-menu-item-form">
@@ -32,6 +39,9 @@ foreach ($main_dishes as $main_dish)
 ?>
         </select>
     </div>
+    <div>
+        <button onclick="addMenuItem()">Pridať</button>
+    </div>
 </div>
 <hr>
 <table>
@@ -42,6 +52,7 @@ foreach ($main_dishes as $main_dish)
             <th>Názov polievky</th>
             <th>Objem</th>
             <th>Cena</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -50,14 +61,22 @@ foreach ($main_dishes as $main_dish)
 $i = 1;
 foreach ($menu_soups as $menu_soup)
 {
+    $id = $menu_soup['id'];
+
     echo("<tr>\n");
 
     echo("<td>$i</td>\n");
     echo("<td>{$menu_soup['meal_name']}</td>\n");
     echo("<td>{$menu_soup['meal_amount']} l</td>\n");
     echo("<td>{$menu_soup['meal_price']} &euro;</td>\n");
+    
+    echo("<td>\n");
+    echo("<button onclick=\"deleteMenuItem($id)\">Vymazať</button>\n");
+    echo("</td>\n");
 
     echo("<tr>\n");
+
+    ++$i;
 }
 
 ?>
@@ -72,6 +91,7 @@ foreach ($menu_soups as $menu_soup)
             <th>Názov hlavného jedla</th>
             <th>Hmotnosť</th>
             <th>Cena</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -80,6 +100,8 @@ foreach ($menu_soups as $menu_soup)
 $i = 1;
 foreach ($menu_main_dishes as $menu_main_dish)
 {
+    $id = $menu_main_dish['id'];
+    
     echo("<tr>\n");
 
     echo("<td>$i</td>\n");
@@ -87,7 +109,13 @@ foreach ($menu_main_dishes as $menu_main_dish)
     echo("<td>{$menu_main_dish['meal_amount']} g</td>\n");
     echo("<td>{$menu_main_dish['meal_price']} &euro;</td>\n");
 
+    echo("<td>\n");
+    echo("<button onclick=\"deleteMenuItem($id)\">Vymazať</button>\n");
+    echo("</td>\n");
+
     echo("<tr>\n");
+
+    ++$i;
 }
 
 ?>

@@ -446,6 +446,7 @@ class Database
     {
         $query =
         "SELECT
+            `menu_items`.`id` AS `id`,
             `meals`.`id` AS `meal_id`,
             `meals`.`name` AS `meal_name`,
             `meals`.`price` AS `meal_price`,
@@ -479,6 +480,39 @@ class Database
         $q->free_result();
 
         return $menu_items;
+    }
+
+    public function add_menu_item($meal_id, $date)
+    {
+        $meal_id = $this->db->real_escape_string($meal_id);
+        $date = $this->db->real_escape_string($date);
+
+        $query =
+        "INSERT INTO `menu_items`
+        (
+            `menu_items`.`meal`,
+            `menu_items`.`date`
+        )
+        VALUES
+        (
+            $meal_id,
+            DATE('$date')
+        )
+        ;";
+
+        return $this->db->query($query);
+    }
+
+    public function delete_menu_item($id)
+    {
+        $id = $this->db->real_escape_string($id);
+
+        $query =
+        "DELETE FROM `menu_items`
+        WHERE `menu_items`.`id` = $id
+        ;";
+
+        return $this->db->query($query);
     }
 }
 

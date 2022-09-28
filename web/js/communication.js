@@ -142,3 +142,20 @@ function deleteAllergen(id) {
 
     sendAndRespond("api/admin/delete-allergen.php", data);
 }
+
+function addMenuItem() {
+    const data = {
+        mealId: document.querySelector("#meal-id").value,
+        date: document.querySelector("#date").value
+    };
+
+    sendAndRespond("api/admin/add-menu-item.php", data);
+}
+
+function deleteMenuItem(id) {
+    const data = {
+        id: id
+    };
+
+    sendAndRespond("api/admin/delete-menu-item.php", data);
+}
