@@ -52,6 +52,7 @@ foreach ($main_dishes as $main_dish)
             <th>Názov polievky</th>
             <th>Objem</th>
             <th>Cena</th>
+            <th>Alergény</th>
             <th></th>
         </tr>
     </thead>
@@ -69,6 +70,14 @@ foreach ($menu_soups as $menu_soup)
     echo("<td>{$menu_soup['meal_name']}</td>\n");
     echo("<td>{$menu_soup['meal_amount']} l</td>\n");
     echo("<td>{$menu_soup['meal_price']} &euro;</td>\n");
+
+    $allergens = [];
+    foreach ($menu_soup['meal_allergens'] as $allergen)
+    {
+        $allergens[] = $allergen['name'];
+    }
+    $allergens = implode(', ', $allergens);
+    echo("<td>$allergens</td>\n");
     
     echo("<td>\n");
     echo("<button onclick=\"deleteMenuItem($id)\">Vymazať</button>\n");
@@ -91,6 +100,7 @@ foreach ($menu_soups as $menu_soup)
             <th>Názov hlavného jedla</th>
             <th>Hmotnosť</th>
             <th>Cena</th>
+            <th>Alergény</th>
             <th></th>
         </tr>
     </thead>
@@ -108,6 +118,14 @@ foreach ($menu_main_dishes as $menu_main_dish)
     echo("<td>{$menu_main_dish['meal_name']}</td>\n");
     echo("<td>{$menu_main_dish['meal_amount']} g</td>\n");
     echo("<td>{$menu_main_dish['meal_price']} &euro;</td>\n");
+
+    $allergens = [];
+    foreach ($menu_main_dish['meal_allergens'] as $allergen)
+    {
+        $allergens[] = $allergen['name'];
+    }
+    $allergens = implode(', ', $allergens);
+    echo("<td>$allergens</td>\n");
 
     echo("<td>\n");
     echo("<button onclick=\"deleteMenuItem($id)\">Vymazať</button>\n");

@@ -474,7 +474,7 @@ class Database
         while ($row = $q->fetch_assoc())
         {
             $menu_item = $row;
-            $menu_item['allergens'] = $this->get_meal_allergens($menu_item['meal_id']);
+            $menu_item['meal_allergens'] = $this->get_meal_allergens($menu_item['meal_id']);
             $menu_items[] = $menu_item;
         }
         $q->free_result();
