@@ -55,7 +55,7 @@ DELETE FROM `meals`;
 INSERT INTO `meals` (`id`, `name`, `price`, `amount`, `meal_type`, `last_edit`) VALUES
 	(1, 'Brokolicová krémova vec', 10.69, 5.00, 'soup', '2022-09-22 18:41:21'),
 	(2, 'Slepačí vývar s mäsom a rezancami', 0.00, 0.33, 'soup', '2022-09-22 18:53:41'),
-	(3, 'Držková desiatová', 2.70, 0.50, 'soup', '2022-09-22 18:41:21'),
+	(3, 'Držková desiatová', 2.70, 0.50, 'soup', '2022-09-29 18:42:59'),
 	(4, 'Moravský bravčový vrabec , kyslá kapusta , knedľa', 5.50, 120.00, 'main_dish', '2022-09-22 18:41:21'),
 	(5, 'Bravčové kocky na Bratislavský spôsob, cestovina', 5.00, 120.00, 'main_dish', '2022-09-27 20:05:55'),
 	(6, 'Grilované kurča ¼ ( stehno , alebo krídlo ) , ryža , kompót', 5.20, 260.00, 'main_dish', '2022-09-22 18:41:21'),
@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `meals_allergens` (
   KEY `allergen` (`allergen`),
   CONSTRAINT `meals_allergens_allergen` FOREIGN KEY (`allergen`) REFERENCES `allergens` (`id`),
   CONSTRAINT `meals_allergens_meal` FOREIGN KEY (`meal`) REFERENCES `meals` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table edo_food.meals_allergens: ~12 rows (approximately)
 DELETE FROM `meals_allergens`;
@@ -97,7 +97,8 @@ INSERT INTO `meals_allergens` (`id`, `meal`, `allergen`) VALUES
 	(14, 26, 1),
 	(15, 26, 3),
 	(16, 26, 8),
-	(17, 5, 5);
+	(17, 5, 5),
+	(18, 3, 1);
 /*!40000 ALTER TABLE `meals_allergens` ENABLE KEYS */;
 
 -- Dumping structure for table edo_food.menu_items
@@ -108,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `menu_items` (
   PRIMARY KEY (`id`),
   KEY `meal` (`meal`),
   CONSTRAINT `menu_items_meal` FOREIGN KEY (`meal`) REFERENCES `meals` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table edo_food.menu_items: ~12 rows (approximately)
 DELETE FROM `menu_items`;
@@ -119,13 +120,13 @@ INSERT INTO `menu_items` (`id`, `meal`, `date`) VALUES
 	(18, 11, '2022-09-28'),
 	(19, 18, '2022-09-28'),
 	(20, 5, '2022-09-28'),
-	(21, 7, '2022-09-29'),
 	(22, 4, '2022-09-29'),
 	(23, 3, '2022-09-29'),
 	(24, 8, '2022-09-29'),
 	(25, 6, '2022-09-29'),
 	(26, 1, '2022-09-28'),
-	(27, 3, '2022-09-28');
+	(27, 3, '2022-09-28'),
+	(28, 2, '2022-09-29');
 /*!40000 ALTER TABLE `menu_items` ENABLE KEYS */;
 
 -- Dumping structure for table edo_food.orders
