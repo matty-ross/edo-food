@@ -5,12 +5,7 @@ require_once 'functions/utility.php';
 
 session_start();
 
-$date = $_GET['date'] ?? null;
-$date = is_valid_date($date) ? $date : date('Y-m-d');
-
 $db = new Database();
-$menu_soups = $db->get_menu_items($date, 'soup');
-$menu_main_dishes = $db->get_menu_items($date, 'main_dish');
 
 ?>
 <!DOCTYPE html>
@@ -40,12 +35,10 @@ if (!is_user_logged_in($db))
 }
 else
 {
+
 ?>
         <button onclick="logout()">Odhlásiť sa</button>
         <h1>Menu</h1>
-        <form method="get">
-            <input type="date" name="date" value="<?php echo($date); ?>" oninput="this.form.submit()">
-        </form>
         <nav>
             <div>
                 <a href="?page=menu-items">Menu</a>

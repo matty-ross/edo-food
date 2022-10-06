@@ -1,15 +1,36 @@
+<?php
+
+require_once 'functions/db.php';
+require_once 'functions/utility.php';
+
+$date = $_GET['date'] ?? null;
+$date = is_valid_date($date) ? $date : date('Y-m-d');
+
+$db = new Database();
+$menu_soups = $db->get_menu_items($date, 'soup');
+$menu_main_dishes = $db->get_menu_items($date, 'main_dish');
+
+?>
+<hr>
+<div>
+    <form method="get">
+        <input type="date" name="date" value="<?php echo($date); ?>" oninput="this.form.submit()">
+        <input type="hidden" name="page" value="menu-items">
+    </form>
+</div>
+<hr>
 <table>
-            <caption>Polievky</caption>
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Názov</th>
-                    <th>Objem</th>
-                    <th>Cena</th>
-                    <th>Alergény</th>
-                </tr>
-            </thead>
-            <tbody>
+    <caption>Polievky</caption>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Názov</th>
+            <th>Objem</th>
+            <th>Cena</th>
+            <th>Alergény</th>
+        </tr>
+    </thead>
+    <tbody>
 <?php
 
 $i = 1;
@@ -38,20 +59,21 @@ foreach ($menu_soups as $menu_soup)
 }
 
 ?>
-            </tbody>
-        </table>
-        <table>
-            <caption>Hlavné jedlá</caption>
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Názov</th>
-                    <th>Objem</th>
-                    <th>Cena</th>
-                    <th>Alergény</th>
-                </tr>
-            </thead>
-            <tbody>
+    </tbody>
+</table>
+<hr>
+<table>
+    <caption>Hlavné jedlá</caption>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Názov</th>
+            <th>Objem</th>
+            <th>Cena</th>
+            <th>Alergény</th>
+        </tr>
+    </thead>
+    <tbody>
 <?php
 
 $i = 1;
@@ -80,5 +102,5 @@ foreach ($menu_main_dishes as $menu_main_dish)
 }
 
 ?>
-            </tbody>
-        </table>
+    </tbody>
+</table>

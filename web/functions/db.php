@@ -10,7 +10,7 @@ class Database
     {
         $host = 'localhost';
         $user = 'root';
-        $password = 'root';
+        $password = '';
         $database = 'edo_food';
         
         $this->db = new mysqli($host, $user, $password, $database);
@@ -534,6 +534,48 @@ class Database
         ;";
 
         return $this->db->query($query);
+    }
+
+    public function get_user_orders($user_id, $date = null, $only_valid = true)
+    {
+        $user_id = $this->db->real_escape_string($user_id);        
+        
+        $query =
+        "SELECT
+            `orders`.`id` AS `id`,
+            `orders`.`menu_item` AS `menu_item_id`,
+            `orders`.`timestamp` AS `timestamp`,
+            `menu_items`.`date` AS `menu_idem_date`,
+            `meals`.`id` AS `meal_id`,
+            `meals`.`name` AS `meal_name`,
+            `meals`.`price` AS `meal_price`
+        FROM `orders`
+            JOIN `menu_items` ON (`menu_items`.`id` = `orders`.`menu_item`)
+            JOIN `meals` ON (`meals`.`id` = `menu_items`.`meal`)
+        WHERE
+            `orders`.`person` = $user_id
+        ";
+        if (is_valid_date($date))
+        {
+            $date = $this->db->real_escape_string($date);
+            $query .= "AND DATE(`menu_items`.`date`) = DATE('$date')\n";
+        }
+        if ($only_valid)
+        {
+            $query .= "AND `orders`.`valid` = 'Y'\n";
+        }
+        $query .= "ORDER BY `orders`.`timestamp` DESC;";
+
+        $orders = [];
+
+        $q = $this->db->query($query);
+        while ($row = $q->fetch_assoc())
+        {
+            $orders[] = $row;
+        }
+        $q->free_result();
+
+        return $orders;
     }
 }
 
