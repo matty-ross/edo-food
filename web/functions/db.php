@@ -10,7 +10,7 @@ class Database
     {
         $host = 'localhost';
         $user = 'root';
-        $password = '';
+        $password = 'root';
         $database = 'edo_food';
         
         $this->db = new mysqli($host, $user, $password, $database);
@@ -59,7 +59,7 @@ class Database
         $row = $q->fetch_assoc();
         $q->free_result();
 
-        return intval($row['count']) !== 0;
+        return intval($row['count']) === 1;
     }
 
     public function is_user_admin($user_id)
@@ -576,6 +576,39 @@ class Database
         $q->free_result();
 
         return $orders;
+    }
+
+    public function order_belongs_to_user($order_id, $user_id)
+    {
+        $order_id = $this->db->real_escape_string($order_id);
+        $user_id = $this->db->real_escape_string($user_id);
+
+        $query =
+        "SELECT
+            COUNT(*) AS `count`
+        FROM `orders`
+        WHERE
+            `orders`.`id` = $order_id AND
+            `orders`.`person` = $user_id
+        ;";
+
+        $q = $this->db->query($query);
+        $row = $q->fetch_assoc();
+        $q->free_result();
+
+        return intval($row['count']) === 1;
+    }
+
+    public function delete_order($id)
+    {
+        $id = $this->db->real_escape_string($id);
+
+        $query =
+        "DELETE FROM `orders`
+        WHERE `orders`.`id` = $id
+        ;";
+
+        return $this->db->query($query);
     }
 }
 

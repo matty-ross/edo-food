@@ -16,7 +16,7 @@ $menu_main_dishes = $db->get_menu_items($date, 'main_dish');
 <hr>
 <div>
     <form method="get">
-        <input type="date" name="date" value="<?php echo($date); ?>" oninput="this.form.submit()">
+        <input type="date" id="date" name="date" value="<?php echo($date); ?>" oninput="this.form.submit()">
         <input type="hidden" name="page" value="menu-items">
     </form>
 </div>

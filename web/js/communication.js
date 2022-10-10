@@ -169,3 +169,11 @@ function addOrder(menuItemId) {
         sendAndRespond("api/menu/add-order.php", data);
     }
 }
+
+function deleteOrder(id) {
+    const data = {
+        id: id
+    };
+
+    sendAndRespond("api/menu/delete-order.php", data);
+}
