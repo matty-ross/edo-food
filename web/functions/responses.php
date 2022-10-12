@@ -1,6 +1,8 @@
 <?php
 
-require_once 'utility.php';
+$root_dir = $_SERVER['DOCUMENT_ROOT'] . '/edo-food';
+
+require_once $root_dir . '/functions/utility.php';
 
 
 function send_response_not_logged_in($goto = null)
@@ -55,6 +57,5 @@ function send_response_action_failure()
         'message' => 'Nepodarilo sa vykonať akciu.',
     ]);
 }
-
 
 ?>

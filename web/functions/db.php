@@ -1,6 +1,9 @@
 <?php
 
-require_once 'utility.php';
+$root_dir = $_SERVER['DOCUMENT_ROOT'] . '/edo-food';
+
+require_once $root_dir . '/functions/utility.php';
+
 
 class Database
 {
@@ -10,7 +13,7 @@ class Database
     {
         $host = 'localhost';
         $user = 'root';
-        $password = 'root';
+        $password = '';
         $database = 'edo_food';
         
         $this->db = new mysqli($host, $user, $password, $database);

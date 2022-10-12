@@ -1,20 +1,29 @@
 <?php
 
-function is_user_logged_in($db)
-{
-    $user_id = $_SESSION['user-id'] ?? null;
-    return
-        $user_id !== null &&
-        $db->is_valid_user_id($user_id);
-}
+$root_dir = $_SERVER['DOCUMENT_ROOT'] . '/edo-food';
 
-function is_admin_logged_in($db)
+require_once $root_dir . '/functions/utility.php';
+require_once $root_dir . '/functions/db.php';
+require_once $root_dir . '/functions/responses.php';
+
+
+function authentificate_admin($db, $goto = null)
 {
-    $user_id = $_SESSION['user-id'] ?? null;
-    return 
-        $user_id !== null &&
-        $db->is_valid_user_id($user_id) &&
-        $db->is_user_admin($user_id);
+    $user_id = get_logged_in_user($db);
+    
+    if ($user_id === null)
+    {
+        send_response_not_logged_in($goto);
+        return false;
+    }
+    
+    if (!$db->is_user_admin($user_id))
+    {
+        send_response_not_admin($goto);
+        return false;
+    }
+    
+    return true;
 }
 
 ?>

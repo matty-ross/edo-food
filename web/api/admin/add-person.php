@@ -1,21 +1,24 @@
 <?php
 
-require_once '../../functions/db.php';
-require_once '../../functions/utility.php';
+$root_dir = $_SERVER['DOCUMENT_ROOT'] . '/edo-food';
 
-header('Content-Type: application/json; charset=utf-8');
+require_once $root_dir . '/functions/utility.php';
+require_once $root_dir . '/functions/db.php';
+require_once $root_dir . '/functions/responses.php';
+require_once $root_dir . '/functions/validators.php';
+require_once $root_dir . '/functions/authentification.php';
+
+
 session_start();
 
 $db = new Database();
 $json = get_json_request();
 
-if (!is_admin_logged_in($db))
+if (!authentificate_admin($db, $root_dir . '/login.php'))
 {
-    send_json_response([
-        'message' => 'Nemáte administrátorske oprávnenia.'
-    ]);
     die;
 }
+
 
 $id = $json->id ?? null;
 $full_name = $json->fullName ?? null;
@@ -33,9 +36,7 @@ if (
     !is_valid_bool($admin)
 )
 {
-    send_json_response([
-        'message' => 'Nevalidné údaje.'
-    ]);
+    send_response_invalid_data();
     die;
 }
 
@@ -43,16 +44,11 @@ $password = hash_password($password);
 
 if ($db->add_person($id, $full_name, $email, $password, $credit, $admin))
 {
-    send_json_response([
-        'message' => 'Osoba pridaná.',
-        'refresh' => true
-    ]);
+    send_response_action_success();
 }
 else
 {
-    send_json_response([
-        'message' => 'Nepodarilo sa pridať osobu.'
-    ]);
+    send_response_action_failure();
 }
 
 ?>
