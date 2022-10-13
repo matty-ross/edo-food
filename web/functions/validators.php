@@ -1,6 +1,5 @@
 <?php
 
-/*
 function is_valid_string($value)
 {
     $invalid_values =
@@ -81,6 +80,5 @@ function is_valid_meal_type($value)
         is_valid_string($value) &&
         in_array($value, $valid_values, true);
 }
-*/
 
 ?>

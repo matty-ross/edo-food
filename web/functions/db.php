@@ -3,6 +3,7 @@
 $root_dir = $_SERVER['DOCUMENT_ROOT'] . '/edo-food';
 
 require_once $root_dir . '/functions/utility.php';
+require_once $root_dir . '/functions/validators.php';
 
 
 class Database

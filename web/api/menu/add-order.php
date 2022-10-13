@@ -1,48 +1,44 @@
 <?php
 
-require_once '../../functions/db.php';
-require_once '../../functions/utility.php';
+$root_dir = $_SERVER['DOCUMENT_ROOT'] . '/edo-food';
 
-header('Content-Type: application/json; charset=utf-8');
+require_once $root_dir . '/functions/utility.php';
+require_once $root_dir . '/functions/db.php';
+require_once $root_dir . '/functions/responses.php';
+require_once $root_dir . '/functions/validators.php';
+require_once $root_dir . '/functions/authentification.php';
+
+
 session_start();
 
 $db = new Database();
 $json = get_json_request();
 
-if (!is_user_logged_in($db))
+if (!authentificate_user($db, 'login.php'))
 {
-    send_json_response([
-        'message' => 'Nie ste prihlásený.'
-    ]);
     die;
 }
 
+
 $menu_item_id = $json->menuItemId ?? null;
-$person_id = $_SESSION['user-id'] ?? null;
+$user_id = get_logged_in_user($db);
 
 if (
     !is_valid_number($menu_item_id) ||
-    !is_valid_number($person_id)
+    !is_valid_number($user_id)
 )
 {
-    send_json_response([
-        'message' => 'Nevalidné údaje.'
-    ]);
+    send_response_invalid_data();
     die;
 }
 
-if ($db->add_order($menu_item_id, $person_id))
+if ($db->add_order($menu_item_id, $user_id))
 {
-    send_json_response([
-        'message' => 'Objednávka pridaná.',
-        'refresh' => true
-    ]);
+    send_response_action_success();
 }
 else
 {
-    send_json_response([
-        'message' => 'Nepodarilo sa pridať objednávku.'
-    ]);
+    send_response_action_failure();
 }
 
 ?>

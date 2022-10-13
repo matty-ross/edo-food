@@ -26,4 +26,17 @@ function authentificate_admin($db, $goto = null)
     return true;
 }
 
+function authentificate_user($db, $goto = null)
+{
+    $user_id = get_logged_in_user($db);
+
+    if ($user_id === null)
+    {
+        send_response_not_logged_in($goto);
+        return false;
+    }
+
+    return true;
+}
+
 ?>

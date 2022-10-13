@@ -5,6 +5,16 @@ $root_dir = $_SERVER['DOCUMENT_ROOT'] . '/edo-food';
 require_once $root_dir . '/functions/utility.php';
 
 
+function send_response_invalid_email_or_password()
+{
+    http_response_code(401);
+    header('Content-Type: application/json');
+
+    send_json_response([
+        'message' => 'Email alebo heslo nie je správne.',
+    ]);
+}
+
 function send_response_not_logged_in($goto = null)
 {
     http_response_code(401);
@@ -55,6 +65,16 @@ function send_response_action_failure()
     
     send_json_response([
         'message' => 'Nepodarilo sa vykonať akciu.',
+    ]);
+}
+
+function send_response_not_owning_order()
+{
+    http_response_code(403);
+    header('Content-Type: application/json');
+
+    send_json_response([
+        'message' => 'Objednávka nepatrí vám.',
     ]);
 }
 

@@ -1,13 +1,18 @@
 <?php
 
-require_once '../functions/db.php';
-require_once '../functions/utility.php';
+$root_dir = $_SERVER['DOCUMENT_ROOT'] . '/edo-food';
 
-header('Content-Type: application/json; charset=utf-8');
+require_once $root_dir . '/functions/utility.php';
+require_once $root_dir . '/functions/db.php';
+require_once $root_dir . '/functions/responses.php';
+require_once $root_dir . '/functions/validators.php';
+
+
 session_start();
 
 $db = new Database();
 $json = get_json_request();
+
 
 $email = $json->email ?? null;
 $password = $json->password ?? null;
@@ -18,9 +23,7 @@ if (
     !is_valid_string($password)
 )
 {
-    send_json_response([
-        'message' => 'Nevalidné údaje.'
-    ]);
+    send_response_invalid_data();
     die;
 }
 
@@ -30,14 +33,12 @@ $_SESSION['user-id'] = $user_id;
 
 if ($user_id === null)
 {
-    send_json_response([
-        'message' => 'Email alebo heslo nie je správne.'
-    ]);
+    send_response_invalid_email_or_password();
     die;
 }
 
 send_json_response([
-    'goto' => $goto
+    'goto' => $goto,
 ]);
 
 ?>

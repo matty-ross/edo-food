@@ -14,7 +14,7 @@ session_start();
 $db = new Database();
 $json = get_json_request();
 
-if (!authentificate_admin($db, $root_dir . '/login.php'))
+if (!authentificate_admin($db, 'login.php'))
 {
     die;
 }

@@ -1,53 +1,47 @@
 <?php
 
-require_once '../../functions/db.php';
-require_once '../../functions/utility.php';
+$root_dir = $_SERVER['DOCUMENT_ROOT'] . '/edo-food';
 
-header('Content-Type: application/json; charset=utf-8');
+require_once $root_dir . '/functions/utility.php';
+require_once $root_dir . '/functions/db.php';
+require_once $root_dir . '/functions/responses.php';
+require_once $root_dir . '/functions/validators.php';
+require_once $root_dir . '/functions/authentification.php';
+
+
 session_start();
 
 $db = new Database();
 $json = get_json_request();
 
-if (!is_user_logged_in($db))
+if (!authentificate_user($db, 'login.php'))
 {
-    send_json_response([
-        'message' => 'Nie ste prihlásený.'
-    ]);
     die;
 }
 
+
 $id = $json->id ?? null;
-$user_id = $_SESSION['user-id'] ?? null;
+$user_id = get_logged_in_user($db);
 
 if (!is_valid_number($id))
 {
-    send_json_response([
-        'message' => 'Nie je uvedené ID objednávky.'
-    ]);
+    send_response_invalid_data();
     die;
 }
 
 if (!$db->order_belongs_to_user($id, $user_id))
 {
-    send_json_response([
-        'message' => 'Objednávka nepatrí vám.'
-    ]);
+    send_response_not_owning_order();
     die;
 }
 
 if ($db->delete_order($id))
 {
-    send_json_response([
-        'message' => 'Objednávka vymazaná.',
-        'refresh' => true
-    ]);
+    send_response_action_success();
 }
 else
 {
-    send_json_response([
-        'message' => 'Nepodarilo sa vymazať objednávku.'
-    ]);
+    send_response_action_failure();
 }
 
 ?>
