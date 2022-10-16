@@ -1,11 +1,3 @@
-<?php
-
-require_once 'functions/db.php';
-
-$db = new Database();
-$people = $db->get_people();
-
-?>
 <hr>
 <div id="add-person-form">
     <h2>Pridať stravníka</h2>

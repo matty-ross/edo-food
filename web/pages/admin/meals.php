@@ -1,13 +1,3 @@
-<?php
-
-require_once 'functions/db.php';
-
-$db = new Database();
-$soups = $db->get_meals('soup');
-$main_dishes = $db->get_meals('main_dish');
-$allergens = $db->get_allergens();
-
-?>
 <hr>
 <div id="add-meal-form">
     <h2>Pridať jedlo</h2>

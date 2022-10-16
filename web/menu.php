@@ -1,11 +1,27 @@
 <?php
 
-require_once 'functions/db.php';
-require_once 'functions/utility.php';
+$root_dir = $_SERVER['DOCUMENT_ROOT'] . '/edo-food';
+
+require_once $root_dir . '/functions/db.php';
+require_once $root_dir . '/functions/authentification.php';
+
 
 session_start();
 
 $db = new Database();
+
+if (!authentificate_user($db, 'login.php?goto=menu.php'))
+{
+    die;
+}
+
+
+$date = $_GET['date'] ?? null;
+$date = is_valid_date($date) ? $date : date('Y-m-d');
+
+$menu_soups = $db->get_menu_items($date, 'soup');
+$menu_main_dishes = $db->get_menu_items($date, 'main_dish');
+$orders = $db->get_user_orders(get_logged_in_user($db));
 
 ?>
 <!DOCTYPE html>
@@ -21,22 +37,6 @@ $db = new Database();
         <title>Edo-Food | Menu</title>
     </head>
     <body>
-<?php
-
-if (!is_user_logged_in($db))
-{
-    $goto = basename(__FILE__);
-    echo("
-        <script>
-            alert('Nie ste prihlásený.');
-            window.location = 'login.php?goto=$goto';
-        </script>
-    ");
-}
-else
-{
-
-?>
         <button onclick="logout()">Odhlásiť sa</button>
         <h1>Menu</h1>
         <nav>
@@ -49,17 +49,20 @@ else
         </nav>
 <?php
 
-    $page = $_GET['page'] ?? null;
-    switch ($page)
+$page = $_GET['page'] ?? null;
+switch ($page)
+{
+case 'menu-items':
     {
-    case 'menu-items':
-        include 'pages/menu/menu-items.php';
-        break;
-
-    case 'orders':
-        include 'pages/menu/orders.php';
-        break;
+        include $root_dir . '/pages/menu/menu-items.php';
     }
+    break;
+
+case 'orders':
+    {
+        include $root_dir . '/pages/menu/orders.php';
+    }
+    break;
 }
 
 ?>

@@ -20,18 +20,17 @@ if (!authentificate_admin($db, 'login.php'))
 }
 
 
-$name = $json->name ?? null;
-$price = $json->price ?? null;
-$amount = $json->amount ?? null;
-$meal_type = $json->mealType ?? null;
-$allergens = $json->allergens ?? [];
+$name = is_valid_string($json->name ?? null) ? $json->name : null;
+$price = is_valid_number($json->price ?? null) ? $json->price : null;
+$amount = is_valid_number($json->amount ?? null) ? $json->amount : null;
+$meal_type = is_valid_meal_type($json->mealType ?? null) ? $json->mealType : null;
+$allergens = is_valid_numeric_array($json->allergens ?? null) ? $json->allergens : [];
 
 if (
-    !is_valid_string($name) ||
-    !is_valid_number($price) ||
-    !is_valid_number($amount) ||
-    !is_valid_meal_type($meal_type) ||
-    !is_valid_numeric_array($allergens)
+    $name === null ||
+    $price === null ||
+    $amount === null ||
+    $meal_type === null
 )
 {
     send_response_invalid_data();

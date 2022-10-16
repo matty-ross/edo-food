@@ -2,10 +2,23 @@
 
 $root_dir = $_SERVER['DOCUMENT_ROOT'] . '/edo-food';
 
-require_once $root_dir . '/functions/utility.php';
 require_once $root_dir . '/functions/db.php';
 require_once $root_dir . '/functions/responses.php';
 
+
+function get_logged_in_user($db)
+{
+    $user_id = $_SESSION['user-id'] ?? null;
+    if (
+        $user_id !== null &&
+        $db->is_valid_user_id($user_id)
+    )
+    {
+        return $user_id;
+    }
+    
+    return null;
+}
 
 function authentificate_admin($db, $goto = null)
 {

@@ -20,13 +20,15 @@ if (!authentificate_admin($db, 'login.php'))
 }
 
 
-$id = $json->id ?? null;
-$name = $json->name ?? null;
-$price = $json->price ?? null;
-$amount = $json->amount ?? null;
-$allergens = $json->allergens ?? [];
+$id = is_valid_number($json->id ?? null) ? $json->id : null;
+$name = is_valid_string($json->name ?? null) ? $json->name : null;
+$price = is_valid_number($json->price ?? null) ? $json->price : null;
+$amount = is_valid_number($json->amount ?? null) ? $json->amount : null;
+$allergens = is_valid_numeric_array($json->allergens ?? null) ? $json->allergens : [];
 
-if (!is_valid_number($id))
+if (
+    $id === null
+)
 {
     send_response_invalid_data();
     die;

@@ -20,20 +20,20 @@ if (!authentificate_admin($db, 'login.php'))
 }
 
 
-$id = $json->id ?? null;
-$full_name = $json->fullName ?? null;
-$email = $json->email ?? null;
-$password = $json->password ?? null;
-$credit = $json->credit ?? null;
-$admin = $json->admin ?? false;
+$id = is_valid_number($json->id ?? null) ? $json->id : null;
+$full_name = is_valid_string($json->fullName ?? null) ? $json->fullName : null;
+$email = is_valid_string($json->email ?? null) ? $json->emal : null;
+$password = is_valid_string($json->password ?? null) ? $json->password : null;
+$credit = is_valid_number($json->credit ?? null) ? $json->creadit : null;
+$admin = is_valid_bool($json->admin ?? null) ? $json->admin : null;
 
 if (
-    !is_valid_number($id) ||
-    !is_valid_string($full_name) ||
-    !is_valid_string($email) ||
-    !is_valid_string($password) ||
-    !is_valid_number($credit) ||
-    !is_valid_bool($admin)
+    $id === null ||
+    $full_name === null ||
+    $email === null ||
+    $password === null ||
+    $credit === null ||
+    $admin === null
 )
 {
     send_response_invalid_data();

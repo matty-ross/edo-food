@@ -20,9 +20,11 @@ if (!authentificate_admin($db, 'login.php'))
 }
 
 
-$name = $json->name ?? null;
+$name = is_valid_string($json->name ?? null) ? $json->name : null;
 
-if (!is_valid_string($name))
+if (
+    $name === null
+)
 {
     send_response_invalid_data();
     die;

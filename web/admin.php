@@ -1,11 +1,30 @@
 <?php
 
-require_once 'functions/db.php';
-require_once 'functions/utility.php';
+$root_dir = $_SERVER['DOCUMENT_ROOT'] . '/edo-food';
+
+require_once $root_dir . '/functions/db.php';
+require_once $root_dir . '/functions/authentification.php';
+
 
 session_start();
 
 $db = new Database();
+
+if (!authentificate_admin($db, 'login.php?goto=admin.php'))
+{
+    die;
+}
+
+
+$date = $_GET['date'] ?? null;
+$date = is_valid_date($date) ? $date : date('Y-m-d');
+
+$soups = $db->get_meals('soup');
+$menu_soups = $db->get_menu_items($date, 'soup');
+$main_dishes = $db->get_meals('main_dish');
+$menu_main_dishes = $db->get_menu_items($date, 'main_dish');
+$allergens = $db->get_allergens();
+$people = $db->get_people();
 
 ?>
 <!DOCTYPE html>
@@ -21,22 +40,6 @@ $db = new Database();
         <title>Edo-Food | Admin</title>
     </head>
     <body>
-<?php
-
-if (!is_admin_logged_in($db))
-{
-    $goto = basename(__FILE__);
-    echo("
-        <script>
-            alert('Nemáte administrátorske oprávnenia.');
-            window.location = 'login.php?goto=$goto';
-        </script>
-    ");
-}
-else
-{
-
-?>
         <button onclick="logout()">Odhlásiť sa</button>
         <h1>Admin</h1>
         <nav>
@@ -52,21 +55,26 @@ else
         </nav>
 <?php
 
-    $page = $_GET['page'] ?? null;
-    switch ($page)
+$page = $_GET['page'] ?? null;
+switch ($page)
+{
+case 'people':
     {
-    case 'people':
-        include 'pages/admin/people.php';
-        break;
-
-    case 'meals':
-        include 'pages/admin/meals.php';
-        break;
-
-    case 'menu-items':
-        include 'pages/admin/menu-items.php';
-        break;
+        include $root_dir . '/pages/admin/people.php';
     }
+    break;
+
+case 'meals':
+    {
+        include $root_dir . '/pages/admin/meals.php';
+    }
+    break;
+
+case 'menu-items':
+    {
+        include $root_dir . '/pages/admin/menu-items.php';
+    }
+    break;
 }
 
 ?>

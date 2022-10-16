@@ -20,12 +20,12 @@ if (!authentificate_admin($db, 'login.php'))
 }
 
 
-$meal_id = $json->mealId ?? null;
-$date = $json->date ?? null;
+$meal_id = is_valid_number($json->mealId ?? null) ? $json->mealId : null;
+$date = is_valid_date($json->date ?? null) ? $json->date : null;
 
 if (
-    !is_valid_number($meal_id) ||
-    !is_valid_date($date)
+    $meal_id === null ||
+    $date === null
 )
 {
     send_response_invalid_data();

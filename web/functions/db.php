@@ -2,7 +2,6 @@
 
 $root_dir = $_SERVER['DOCUMENT_ROOT'] . '/edo-food';
 
-require_once $root_dir . '/functions/utility.php';
 require_once $root_dir . '/functions/validators.php';
 
 
@@ -151,32 +150,32 @@ class Database
         SET
             `people`.`last_edit` = CURRENT_TIMESTAMP()
         ";
-        if (is_valid_number($new_id))
+        if ($new_id !== null)
         {
             $new_id = $this->db->real_escape_string($new_id);
             $query .= ", `people`.`id` = $new_id\n";
         }
-        if (is_valid_string($full_name))
+        if ($full_name !== null)
         {
             $full_name = $this->db->real_escape_string($full_name);
             $query .= ", `people`.`full_name` = TRIM('$full_name')\n";
         }
-        if (is_valid_string($email))
+        if ($email !== null)
         {
             $email = $this->db->real_escape_string($email);
             $query .= ", `people`.`email` = TRIM('$email')\n";
         }
-        if (is_valid_string($password))
+        if ($password !== null)
         {
             $password = $this->db->real_escape_string($password);
             $query .= ", `people`.`password` = TRIM('$password')\n";
         }
-        if (is_valid_number($add_credit))
+        if ($add_credit !== null)
         {
             $add_credit = $this->db->real_escape_string($add_credit);
             $query .= ", `people`.`credit` = `people`.`credit` + $add_credit\n";
         }
-        if (is_valid_bool($admin))
+        if ($admin !== null)
         {
             $admin = $admin ? 'Y' : 'N';
             $query .= ", `people`.`admin` = TRIM('$admin')\n";
@@ -269,27 +268,24 @@ class Database
         SET
             `meals`.`last_edit` = CURRENT_TIMESTAMP()
         ";
-        if (is_valid_string($name))
+        if ($name !== null)
         {
             $name = $this->db->real_escape_string($name);
             $query .= ", `meals`.`name` = TRIM('$name')\n";
         }
-        if (is_valid_number($price))
+        if ($price !== null)
         {
             $price = $this->db->real_escape_string($price);
             $query .= ", `meals`.`price` = $price\n";
         }
-        if (is_valid_number($amount))
+        if ($amount !== null)
         {
             $amount = $this->db->real_escape_string($amount);
             $query .= ", `meals`.`amount` = $amount\n";
         }
         $query .= "WHERE `meals`.`id` = $id;";
 
-        if (
-            !is_valid_numeric_array($allergens) ||
-            !$this->db->query($query)
-        )
+        if (!$this->db->query($query))
         {
             return false;
         }
@@ -402,13 +398,18 @@ class Database
     public function update_allergen($id, $name)
     {
         $id = $this->db->real_escape_string($id);
-        $name = $this->db->real_escape_string($name);
 
         $query =
         "UPDATE `allergens`
-        SET `allergens`.`name` = TRIM('$name')
-        WHERE `allergens`.`id` = $id
-        ;";
+        SET
+            `allergens`.`last_edit` = CURRENT_TIMESTAMP()
+        ";
+        if ($name !== null)
+        {
+            $name = $this->db->real_escape_string($name);
+            $query .= ", `allergens`.`name` = TRIM('$name')\n";
+        }
+        $query .= "WHERE `allergens`.`id` = $id;";
 
         return $this->db->query($query);
     }

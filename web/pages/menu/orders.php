@@ -1,20 +1,4 @@
-<?php
-
-require_once 'functions/db.php';
-
-$user_id = $_SESSION['user-id'] ?? null;
-
-$db = new Database();
-if ($db->is_valid_user_id($user_id))
-{
-    $orders = $db->get_user_orders($user_id);
-}
-else
-{
-    $orders = [];
-}
-
-?>
+<hr>
 <table>
     <caption>Prehľad objednávok obedov</caption>
     <thead>

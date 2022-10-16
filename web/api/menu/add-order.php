@@ -20,12 +20,12 @@ if (!authentificate_user($db, 'login.php'))
 }
 
 
-$menu_item_id = $json->menuItemId ?? null;
+$menu_item_id = is_valid_number($json->menuItemId ?? null) ? $json->menuItemId : null;
 $user_id = get_logged_in_user($db);
 
 if (
-    !is_valid_number($menu_item_id) ||
-    !is_valid_number($user_id)
+    $menu_item_id === null ||
+    $user_id === null
 )
 {
     send_response_invalid_data();

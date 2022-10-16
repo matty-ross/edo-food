@@ -14,13 +14,13 @@ $db = new Database();
 $json = get_json_request();
 
 
-$email = $json->email ?? null;
-$password = $json->password ?? null;
-$goto = $json->goto ?? 'menu.php';
+$email = is_valid_string($json->email ?? null) ? $json->email : null;
+$password = is_valid_string($json->password ?? null) ? $json->password : null;
+$goto = is_valid_string($json->goto ?? null) ? $json->goto : 'menu.php';
 
 if (
-    !is_valid_string($email) ||
-    !is_valid_string($password)
+    $email === null ||
+    $password === null
 )
 {
     send_response_invalid_data();

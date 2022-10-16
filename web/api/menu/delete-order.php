@@ -20,10 +20,13 @@ if (!authentificate_user($db, 'login.php'))
 }
 
 
-$id = $json->id ?? null;
+$id = is_valid_number($json->id ?? null) ? $json->id : null;
 $user_id = get_logged_in_user($db);
 
-if (!is_valid_number($id))
+if (
+    $id === null ||
+    $user_id === null
+)
 {
     send_response_invalid_data();
     die;
