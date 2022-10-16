@@ -21,21 +21,22 @@ USE `edo_food`;
 CREATE TABLE IF NOT EXISTS `allergens` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
+  `last_edit` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table edo_food.allergens: ~8 rows (approximately)
 DELETE FROM `allergens`;
 /*!40000 ALTER TABLE `allergens` DISABLE KEYS */;
-INSERT INTO `allergens` (`id`, `name`) VALUES
-	(1, 'lepok'),
-	(2, 'mlieko'),
-	(3, 'vajcia'),
-	(4, 'ryby'),
-	(5, 'arašidy'),
-	(6, 'sójové zrná'),
-	(8, 'škrob'),
-	(11, 'kukurica');
+INSERT INTO `allergens` (`id`, `name`, `last_edit`) VALUES
+	(1, 'lepok', '2022-10-16 12:51:20'),
+	(2, 'mlieko', '2022-10-16 12:51:20'),
+	(3, 'vajcia', '2022-10-16 12:51:20'),
+	(4, 'ryby', '2022-10-16 12:51:20'),
+	(5, 'arašidy', '2022-10-16 12:51:20'),
+	(6, 'sójové zrná', '2022-10-16 12:51:20'),
+	(8, 'škrob', '2022-10-16 12:51:20'),
+	(11, 'kukurica', '2022-10-16 12:51:20');
 /*!40000 ALTER TABLE `allergens` ENABLE KEYS */;
 
 -- Dumping structure for table edo_food.meals
@@ -47,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `meals` (
   `meal_type` enum('soup','main_dish') NOT NULL,
   `last_edit` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table edo_food.meals: ~15 rows (approximately)
 DELETE FROM `meals`;
@@ -80,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `meals_allergens` (
   KEY `allergen` (`allergen`),
   CONSTRAINT `meals_allergens_allergen` FOREIGN KEY (`allergen`) REFERENCES `allergens` (`id`),
   CONSTRAINT `meals_allergens_meal` FOREIGN KEY (`meal`) REFERENCES `meals` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table edo_food.meals_allergens: ~12 rows (approximately)
 DELETE FROM `meals_allergens`;
