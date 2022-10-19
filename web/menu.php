@@ -1,17 +1,16 @@
 <?php
 
-$root_dir = $_SERVER['DOCUMENT_ROOT'] . '/edo-food';
-
-require_once $root_dir . '/functions/db.php';
-require_once $root_dir . '/functions/authentification.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/functions/db.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/functions/authentification.php';
 
 
 session_start();
 
 $db = new Database();
 
-if (!authentificate_user($db, 'login.php?goto=menu.php'))
+if (!authentificate_user($db))
 {
+    header('Location: ./login.php?goto=./menu.php');
     die;
 }
 
@@ -33,7 +32,7 @@ $orders = $db->get_user_orders(get_logged_in_user($db));
         <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
         <meta http-equiv="Pragma" content="no-cache">
         <meta http-equiv="Expires" content="0">
-        <script src="js/communication.js" defer></script>
+        <script src="./js/communication.js" defer></script>
         <title>Edo-Food | Menu</title>
     </head>
     <body>
@@ -54,13 +53,13 @@ switch ($page)
 {
 case 'menu-items':
     {
-        include $root_dir . '/pages/menu/menu-items.php';
+        include $_SERVER['DOCUMENT_ROOT'] . '/pages/menu/menu-items.php';
     }
     break;
 
 case 'orders':
     {
-        include $root_dir . '/pages/menu/orders.php';
+        include $_SERVER['DOCUMENT_ROOT'] . '/pages/menu/orders.php';
     }
     break;
 }

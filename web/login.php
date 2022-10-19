@@ -7,7 +7,7 @@
         <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
         <meta http-equiv="Pragma" content="no-cache">
         <meta http-equiv="Expires" content="0">
-        <script src="js/communication.js" defer></script>
+        <script src="./js/communication.js" defer></script>
         <title>Edo-Food | Login</title>
     </head>
     <body>
@@ -18,7 +18,7 @@
             <div>
                 <input type="password" id="password" placeholder="Heslo...">
             </div>
-            <input type="hidden" id="goto" value="<?php echo($_GET['goto'] ?? 'menu.php'); ?>">
+            <input type="hidden" id="goto" value="<?php echo($_GET['goto'] ?? './menu.php'); ?>">
             <div>
                 <button onclick="login()">Prihlásiť sa</button>
             </div>

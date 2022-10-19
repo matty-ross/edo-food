@@ -1,12 +1,10 @@
 <?php
 
-$root_dir = $_SERVER['DOCUMENT_ROOT'] . '/edo-food';
-
-require_once $root_dir . '/functions/utility.php';
-require_once $root_dir . '/functions/db.php';
-require_once $root_dir . '/functions/responses.php';
-require_once $root_dir . '/functions/validators.php';
-require_once $root_dir . '/functions/authentification.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/functions/utility.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/functions/db.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/functions/responses.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/functions/validators.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/functions/authentification.php';
 
 
 session_start();
@@ -14,7 +12,7 @@ session_start();
 $db = new Database();
 $json = get_json_request();
 
-if (!authentificate_user($db, 'login.php'))
+if (!authentificate_user($db, './login.php'))
 {
     die;
 }

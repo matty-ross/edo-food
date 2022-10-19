@@ -1,9 +1,7 @@
 <?php
 
-$root_dir = $_SERVER['DOCUMENT_ROOT'] . '/edo-food';
-
-require_once $root_dir . '/functions/db.php';
-require_once $root_dir . '/functions/responses.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/functions/db.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/functions/responses.php';
 
 
 function get_logged_in_user($db)

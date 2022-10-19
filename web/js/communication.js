@@ -28,11 +28,11 @@ function login() {
         goto: document.querySelector("#login-form #goto").value
     };
 
-    sendAndRespond("api/login.php", data);
+    sendAndRespond("./api/login.php", data);
 }
 
 function logout() {
-    sendAndRespond("api/logout.php", null);
+    sendAndRespond("./api/logout.php", null);
 }
 
 function addPerson() {
@@ -45,7 +45,7 @@ function addPerson() {
         admin: document.querySelector("#add-person-form #admin").checked
     };
 
-    sendAndRespond("api/admin/add-person.php", data);
+    sendAndRespond("./api/admin/add-person.php", data);
 }
 
 function updatePerson(id) {
@@ -59,7 +59,7 @@ function updatePerson(id) {
         admin: document.querySelector(`#person-admin-${id}`).checked,
     };
 
-    sendAndRespond("api/admin/update-person.php", data);
+    sendAndRespond("./api/admin/update-person.php", data);
 }
 
 function deletePerson(id) {
@@ -67,7 +67,7 @@ function deletePerson(id) {
         id: id
     };
 
-    sendAndRespond("api/admin/delete-person.php", data);
+    sendAndRespond("./api/admin/delete-person.php", data);
 }
 
 function addMeal() {
@@ -87,7 +87,7 @@ function addMeal() {
         allergens: getAllergens()
     };
 
-    sendAndRespond("api/admin/add-meal.php", data);
+    sendAndRespond("./api/admin/add-meal.php", data);
 }
 
 function updateMeal(id) {
@@ -107,7 +107,7 @@ function updateMeal(id) {
         allergens: getAllergens()
     };
 
-    sendAndRespond("api/admin/update-meal.php", data);
+    sendAndRespond("./api/admin/update-meal.php", data);
 }
 
 function deleteMeal(id) {
@@ -115,7 +115,7 @@ function deleteMeal(id) {
         id: id
     };
 
-    sendAndRespond("api/admin/delete-meal.php", data);
+    sendAndRespond("./api/admin/delete-meal.php", data);
 }
 
 function addAllergen() {
@@ -123,7 +123,7 @@ function addAllergen() {
         name: document.querySelector("#add-allergen-form #allergen-name").value
     };
 
-    sendAndRespond("api/admin/add-allergen.php", data);
+    sendAndRespond("./api/admin/add-allergen.php", data);
 }
 
 function updateAllergen(id) {
@@ -132,7 +132,7 @@ function updateAllergen(id) {
         name: document.querySelector(`#allergen-name-${id}`).value
     };
 
-    sendAndRespond("api/admin/update-allergen.php", data);
+    sendAndRespond("./api/admin/update-allergen.php", data);
 }
 
 function deleteAllergen(id) {
@@ -140,7 +140,7 @@ function deleteAllergen(id) {
         id: id
     };
 
-    sendAndRespond("api/admin/delete-allergen.php", data);
+    sendAndRespond("./api/admin/delete-allergen.php", data);
 }
 
 function addMenuItem() {
@@ -149,7 +149,7 @@ function addMenuItem() {
         date: document.querySelector("#date").value
     };
 
-    sendAndRespond("api/admin/add-menu-item.php", data);
+    sendAndRespond("./api/admin/add-menu-item.php", data);
 }
 
 function deleteMenuItem(id) {
@@ -157,7 +157,7 @@ function deleteMenuItem(id) {
         id: id
     };
 
-    sendAndRespond("api/admin/delete-menu-item.php", data);
+    sendAndRespond("./api/admin/delete-menu-item.php", data);
 }
 
 function addOrder(menuItemId) {
@@ -166,7 +166,7 @@ function addOrder(menuItemId) {
             menuItemId: menuItemId
         };
     
-        sendAndRespond("api/menu/add-order.php", data);
+        sendAndRespond("./api/menu/add-order.php", data);
     }
 }
 
@@ -175,5 +175,5 @@ function deleteOrder(id) {
         id: id
     };
 
-    sendAndRespond("api/menu/delete-order.php", data);
+    sendAndRespond("./api/menu/delete-order.php", data);
 }

@@ -1,8 +1,6 @@
 <?php
 
-$root_dir = $_SERVER['DOCUMENT_ROOT'] . '/edo-food';
-
-require_once $root_dir . '/functions/utility.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/functions/utility.php';
 
 
 function send_response_invalid_email_or_password()

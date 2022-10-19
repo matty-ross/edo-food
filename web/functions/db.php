@@ -1,8 +1,6 @@
 <?php
 
-$root_dir = $_SERVER['DOCUMENT_ROOT'] . '/edo-food';
-
-require_once $root_dir . '/functions/validators.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/functions/validators.php';
 
 
 class Database
@@ -213,6 +211,7 @@ class Database
             $meal_type = $this->db->real_escape_string($meal_type);
             $query .= "WHERE `meals`.`meal_type` = TRIM('$meal_type')";
         }
+        $query .= ";";
 
         $meals = [];
 
@@ -252,11 +251,15 @@ class Database
         )
         ;";
 
-        if (!$this->db->query($query))
+        if (
+            !$this->db->query($query) ||
+            !$this->add_meal_allergens($this->db->insert_id, $allergens)
+        )
         {
             return false;
         }
-        return $this->add_meal_allergens($this->db->insert_id, $allergens);
+        
+        return true;
     }
 
     public function update_meal($id, $name, $price, $amount, $allergens)
@@ -285,11 +288,15 @@ class Database
         }
         $query .= "WHERE `meals`.`id` = $id;";
 
-        if (!$this->db->query($query))
+        if (
+            !$this->db->query($query) ||
+            !$this->update_meal_allergens($id, $allergens)
+        )
         {
             return false;
         }
-        return $this->update_meal_allergens($id, $allergens);
+        
+        return true;
     }
 
     public function delete_meal($id)
@@ -301,11 +308,15 @@ class Database
         WHERE `meals`.`id` = $id
         ;";
 
-        if (!$this->delete_meal_allergens($id))
+        if (
+            !$this->delete_meal_allergens($id) ||
+            !$this->db->query($query)
+        )
         {
             return false;
         }
-        return $this->db->query($query);
+        
+        return true;
     }
 
     public function get_allergens()
@@ -390,7 +401,7 @@ class Database
             $allergen = $this->db->real_escape_string($allergen);
             $values[] = "($meal_id, $allergen)\n";
         }
-        $query .= implode(',', $values);
+        $query .= implode(',', $values) . ";";
 
         return $this->db->query($query);
     }
@@ -416,11 +427,15 @@ class Database
 
     private function update_meal_allergens($meal_id, $allergens)
     {
-        if (!$this->delete_meal_allergens($meal_id))
+        if (
+            !$this->delete_meal_allergens($meal_id) ||
+            !$this->add_meal_allergens($meal_id, $allergens)
+        )
         {
             return false;
         }
-        return $this->add_meal_allergens($meal_id, $allergens);
+        
+        return true;
     }
 
     public function delete_allergen($id)
@@ -470,8 +485,9 @@ class Database
         if (is_valid_meal_type($meal_type))
         {
             $meal_type = $this->db->real_escape_string($meal_type);
-            $query .= "AND `meals`.`meal_type` = TRIM('$meal_type')\n";
+            $query .= "AND TRIM(`meals`.`meal_type`) = TRIM('$meal_type')\n";
         }
+        $query .= ";";
 
         $menu_items = [];
 

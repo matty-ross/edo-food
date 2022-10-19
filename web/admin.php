@@ -1,17 +1,16 @@
 <?php
 
-$root_dir = $_SERVER['DOCUMENT_ROOT'] . '/edo-food';
-
-require_once $root_dir . '/functions/db.php';
-require_once $root_dir . '/functions/authentification.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/functions/db.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/functions/authentification.php';
 
 
 session_start();
 
 $db = new Database();
 
-if (!authentificate_admin($db, 'login.php?goto=admin.php'))
+if (!authentificate_admin($db))
 {
+    header('Location: ./login.php?goto=./admin.php');
     die;
 }
 
@@ -36,7 +35,7 @@ $people = $db->get_people();
         <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
         <meta http-equiv="Pragma" content="no-cache">
         <meta http-equiv="Expires" content="0">
-        <script src="js/communication.js" defer></script>
+        <script src="./js/communication.js" defer></script>
         <title>Edo-Food | Admin</title>
     </head>
     <body>
@@ -60,21 +59,21 @@ switch ($page)
 {
 case 'people':
     {
-        include $root_dir . '/pages/admin/people.php';
+        include $_SERVER['DOCUMENT_ROOT'] . '/pages/admin/people.php';
+        break;
     }
-    break;
 
 case 'meals':
     {
-        include $root_dir . '/pages/admin/meals.php';
+        include $_SERVER['DOCUMENT_ROOT'] . '/pages/admin/meals.php';
+        break;
     }
-    break;
 
 case 'menu-items':
     {
-        include $root_dir . '/pages/admin/menu-items.php';
+        include $_SERVER['DOCUMENT_ROOT'] . '/pages/admin/menu-items.php';
+        break;
     }
-    break;
 }
 
 ?>
