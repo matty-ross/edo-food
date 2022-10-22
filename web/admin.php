@@ -15,6 +15,8 @@ if (!authentificate_admin($db))
 }
 
 
+$logged_in_person = $db->get_person(get_logged_in_user($db));
+
 $date = $_GET['date'] ?? null;
 $date = is_valid_date($date) ? $date : date('Y-m-d');
 
@@ -35,41 +37,45 @@ $people = $db->get_people();
         <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
         <meta http-equiv="Pragma" content="no-cache">
         <meta http-equiv="Expires" content="0">
+        <link rel="stylesheet" href="./css/main.css">
         <script src="./js/communication.js" defer></script>
         <title>Edo-Food | Admin</title>
     </head>
     <body>
-        <button onclick="logout()">Odhlásiť sa</button>
-        <h1>Admin</h1>
+        <div class="user-info">
+            <span>
+                <p><?php echo($logged_in_person['full_name']); ?></p>
+                <p><?php echo($logged_in_person['email']); ?></p>
+            </span>
+            <span>
+                <button onclick="logout()">Odhlásiť sa</button>
+            </span>
+        </div>
         <nav>
-            <div>
-                <a href="?page=people">Prehľad stravníkov</a>
-            </div>
-            <div>
-                <a href="?page=meals">Prehľad jedál</a>
-            </div>
-            <div>
-                <a href="?page=menu-items">Menu</a>
-            </div>
+            <a href="?page=people">Prehľad stravníkov</a>
+            <a href="?page=meals">Prehľad jedál</a>
+            <a href="?page=menu-items">Menu</a>
         </nav>
+        <main>
+            <h1>Admin</h1>
 <?php
 
 $page = $_GET['page'] ?? null;
 switch ($page)
 {
-case 'people':
+    case 'people':
     {
         include $_SERVER['DOCUMENT_ROOT'] . '/pages/admin/people.php';
         break;
     }
 
-case 'meals':
+    case 'meals':
     {
         include $_SERVER['DOCUMENT_ROOT'] . '/pages/admin/meals.php';
         break;
     }
 
-case 'menu-items':
+    case 'menu-items':
     {
         include $_SERVER['DOCUMENT_ROOT'] . '/pages/admin/menu-items.php';
         break;
@@ -77,5 +83,6 @@ case 'menu-items':
 }
 
 ?>
+        </main>
     </body>
 </html>

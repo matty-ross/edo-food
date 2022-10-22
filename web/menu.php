@@ -15,12 +15,14 @@ if (!authentificate_user($db))
 }
 
 
+$logged_in_person = $db->get_person(get_logged_in_user($db));
+
 $date = $_GET['date'] ?? null;
 $date = is_valid_date($date) ? $date : date('Y-m-d');
 
 $menu_soups = $db->get_menu_items($date, 'soup');
 $menu_main_dishes = $db->get_menu_items($date, 'main_dish');
-$orders = $db->get_user_orders(get_logged_in_user($db));
+$orders = $db->get_user_orders($logged_in_person['id']);
 
 ?>
 <!DOCTYPE html>
@@ -32,38 +34,45 @@ $orders = $db->get_user_orders(get_logged_in_user($db));
         <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
         <meta http-equiv="Pragma" content="no-cache">
         <meta http-equiv="Expires" content="0">
+        <link rel="stylesheet" href="./css/main.css">
         <script src="./js/communication.js" defer></script>
         <title>Edo-Food | Menu</title>
     </head>
     <body>
-        <button onclick="logout()">Odhlásiť sa</button>
-        <h1>Menu</h1>
+        <div class="user-info">
+            <span>
+                <p><?php echo($logged_in_person['full_name']); ?></p>
+                <p><?php echo($logged_in_person['email']); ?></p>
+            </span>
+            <span>
+                <button onclick="logout()">Odhlásiť sa</button>
+            </span>
+        </div>
         <nav>
-            <div>
-                <a href="?page=menu-items">Menu</a>
-            </div>
-            <div>
-                <a href="?page=orders">Prehľad objednávok</a>
-            </div>
+            <a href="?page=menu-items">Menu</a>
+            <a href="?page=orders">Prehľad objednávok</a>
         </nav>
+        <main>
+            <h1>Menu</h1>
 <?php
 
 $page = $_GET['page'] ?? null;
 switch ($page)
 {
-case 'menu-items':
+    case 'menu-items':
     {
         include $_SERVER['DOCUMENT_ROOT'] . '/pages/menu/menu-items.php';
+        break;
     }
-    break;
 
-case 'orders':
+    case 'orders':
     {
         include $_SERVER['DOCUMENT_ROOT'] . '/pages/menu/orders.php';
+        break;
     }
-    break;
 }
 
 ?>
+        </main>
     </body>
 </html>

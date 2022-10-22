@@ -106,6 +106,27 @@ class Database
         return $people;
     }
 
+    public function get_person($user_id)
+    {
+        $user_id = $this->db->real_escape_string($user_id);
+
+        $query =
+        "SELECT
+            `people`.`id` AS `id`,
+            `people`.`full_name` AS `full_name`,
+            `people`.`email` AS `email`
+        FROM `people`
+        WHERE
+            `people`.`id` = $user_id
+        ;";
+
+        $q = $this->db->query($query);
+        $row = $q->fetch_assoc();
+        $q->free_result();
+
+        return $row;
+    }
+
     public function add_person($id, $full_name, $email, $password, $credit, $admin)
     {
         $id = $this->db->real_escape_string($id);

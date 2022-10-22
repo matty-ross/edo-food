@@ -7,6 +7,7 @@
         <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
         <meta http-equiv="Pragma" content="no-cache">
         <meta http-equiv="Expires" content="0">
+        <link rel="stylesheet" href="./css/main.css">
         <script src="./js/communication.js" defer></script>
         <title>Edo-Food | Login</title>
     </head>
