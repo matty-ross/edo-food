@@ -7,3 +7,7 @@
 <img src="https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white" />
 
 Projekt k maturite 2023.
+
+## Testovacie účty
+- email: **admin@edofood.com** heslo: **admin**
+- email: **tester@edofood.com** heslo: **tester**
