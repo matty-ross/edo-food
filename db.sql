@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `allergens` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table edo_food.allergens: ~0 rows (approximately)
+-- Dumping data for table edo_food.allergens: ~13 rows (approximately)
 DELETE FROM `allergens`;
 /*!40000 ALTER TABLE `allergens` DISABLE KEYS */;
 INSERT INTO `allergens` (`id`, `name`, `last_edit`) VALUES
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `meals` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table edo_food.meals: ~0 rows (approximately)
+-- Dumping data for table edo_food.meals: ~6 rows (approximately)
 DELETE FROM `meals`;
 /*!40000 ALTER TABLE `meals` DISABLE KEYS */;
 INSERT INTO `meals` (`id`, `name`, `price`, `amount`, `meal_type`, `last_edit`) VALUES
@@ -80,7 +80,7 @@ CREATE TABLE IF NOT EXISTS `meals_allergens` (
   CONSTRAINT `meals_allergens_meal` FOREIGN KEY (`meal`) REFERENCES `meals` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table edo_food.meals_allergens: ~0 rows (approximately)
+-- Dumping data for table edo_food.meals_allergens: ~14 rows (approximately)
 DELETE FROM `meals_allergens`;
 /*!40000 ALTER TABLE `meals_allergens` DISABLE KEYS */;
 INSERT INTO `meals_allergens` (`id`, `meal`, `allergen`) VALUES
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `menu_items` (
   CONSTRAINT `menu_items_meal` FOREIGN KEY (`meal`) REFERENCES `meals` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table edo_food.menu_items: ~0 rows (approximately)
+-- Dumping data for table edo_food.menu_items: ~2 rows (approximately)
 DELETE FROM `menu_items`;
 /*!40000 ALTER TABLE `menu_items` DISABLE KEYS */;
 INSERT INTO `menu_items` (`id`, `meal`, `date`) VALUES
@@ -131,11 +131,14 @@ CREATE TABLE IF NOT EXISTS `orders` (
   KEY `person` (`person`),
   CONSTRAINT `orders_menu_item` FOREIGN KEY (`menu_item`) REFERENCES `menu_items` (`id`),
   CONSTRAINT `orders_person` FOREIGN KEY (`person`) REFERENCES `people` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table edo_food.orders: ~0 rows (approximately)
+-- Dumping data for table edo_food.orders: ~2 rows (approximately)
 DELETE FROM `orders`;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
+INSERT INTO `orders` (`id`, `menu_item`, `person`, `timestamp`, `valid`) VALUES
+	(1, 1, 123456789, '2022-10-23 19:51:26', 'Y'),
+	(2, 3, 123456789, '2022-10-23 19:51:29', 'Y');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 
 -- Dumping structure for table edo_food.people
