@@ -23,20 +23,26 @@ CREATE TABLE IF NOT EXISTS `allergens` (
   `name` varchar(255) NOT NULL,
   `last_edit` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table edo_food.allergens: ~8 rows (approximately)
+-- Dumping data for table edo_food.allergens: ~0 rows (approximately)
 DELETE FROM `allergens`;
 /*!40000 ALTER TABLE `allergens` DISABLE KEYS */;
 INSERT INTO `allergens` (`id`, `name`, `last_edit`) VALUES
-	(1, 'lepok', '2022-10-16 12:51:20'),
-	(2, 'mlieko', '2022-10-16 12:51:20'),
-	(3, 'vajcia', '2022-10-16 12:51:20'),
-	(4, 'ryby', '2022-10-16 12:51:20'),
-	(5, 'arašidy', '2022-10-16 12:51:20'),
-	(6, 'sójové zrná', '2022-10-16 12:51:20'),
-	(8, 'škrob', '2022-10-16 12:51:20'),
-	(11, 'kukurica', '2022-10-16 12:51:20');
+	(1, 'lepok', '2022-10-23 12:36:23'),
+	(2, 'kôrovce', '2022-10-23 12:36:29'),
+	(3, 'vajcia', '2022-10-23 12:36:35'),
+	(5, 'arašidy', '2022-10-23 12:38:12'),
+	(6, 'sójové zrná', '2022-10-23 12:37:03'),
+	(7, 'mlieko', '2022-10-23 12:37:09'),
+	(8, 'orechy', '2022-10-23 12:37:14'),
+	(9, 'zeler', '2022-10-23 12:37:19'),
+	(10, 'horčica', '2022-10-23 12:37:25'),
+	(11, 'sezamové zrná', '2022-10-23 12:37:31'),
+	(12, 'oxid siričitý', '2022-10-23 12:37:36'),
+	(13, 'vlčí bôb', '2022-10-23 12:37:40'),
+	(14, 'mäkkýše', '2022-10-23 12:37:43'),
+	(15, 'ryby', '2022-10-23 12:36:50');
 /*!40000 ALTER TABLE `allergens` ENABLE KEYS */;
 
 -- Dumping structure for table edo_food.meals
@@ -48,27 +54,18 @@ CREATE TABLE IF NOT EXISTS `meals` (
   `meal_type` enum('soup','main_dish') NOT NULL,
   `last_edit` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table edo_food.meals: ~15 rows (approximately)
+-- Dumping data for table edo_food.meals: ~0 rows (approximately)
 DELETE FROM `meals`;
 /*!40000 ALTER TABLE `meals` DISABLE KEYS */;
 INSERT INTO `meals` (`id`, `name`, `price`, `amount`, `meal_type`, `last_edit`) VALUES
-	(1, 'Brokolicová krémova vec', 10.69, 5.00, 'soup', '2022-09-22 18:41:21'),
-	(2, 'Slepačí vývar s mäsom a rezancami', 0.00, 0.33, 'soup', '2022-09-22 18:53:41'),
-	(3, 'Držková desiatová', 2.70, 0.50, 'soup', '2022-09-29 18:42:59'),
-	(4, 'Moravský bravčový vrabec , kyslá kapusta , knedľa', 5.50, 120.00, 'main_dish', '2022-09-22 18:41:21'),
-	(5, 'Bravčové kocky na Bratislavský spôsob, cestovina', 5.00, 120.00, 'main_dish', '2022-09-27 20:05:55'),
-	(6, 'Grilované kurča ¼ ( stehno , alebo krídlo ) , ryža , kompót', 5.20, 260.00, 'main_dish', '2022-09-22 18:41:21'),
-	(7, 'Cesnaková so šunkou a syrom', 1.80, 0.33, 'soup', '2022-09-22 18:41:21'),
-	(8, 'Kurací vyprážaný rezeň', 5.20, 150.00, 'main_dish', '2022-09-22 18:41:21'),
-	(9, 'Fazuľová krémová', 0.00, 0.25, 'soup', '2022-09-22 18:53:43'),
-	(11, 'Býčie vajca', 5.70, 300.00, 'main_dish', '2022-09-23 20:12:03'),
-	(12, 'Korytnačia polievka', 0.00, 2.00, 'soup', '2022-09-22 18:53:45'),
-	(18, 'Šnicel', 6.00, 500.00, 'main_dish', '2022-09-22 19:32:12'),
-	(19, 'Šutelica', 1.00, 0.50, 'soup', '2022-09-22 18:41:21'),
-	(20, 'Bravčové výpečky', 5.00, 200.00, 'main_dish', '2022-09-22 18:41:21'),
-	(26, 'Hovädzí steak s hranolkami', 6.00, 350.00, 'main_dish', '2022-09-25 19:50:48');
+	(1, 'Hrachový krém, klobáska, 1 ks chlieb', 0.00, 0.33, 'soup', '2022-10-23 12:39:38'),
+	(2, 'Slepačí vývar s mäsom a rezancami', 0.00, 0.33, 'soup', '2022-10-23 12:40:05'),
+	(3, 'Držková desiatová, 2 ks chlieb', 2.90, 0.50, 'soup', '2022-10-23 12:40:25'),
+	(4, 'Bravčový mletý rezeň so syrom, zemiaky varené, čalamáda', 5.90, 240.00, 'main_dish', '2022-10-23 12:41:01'),
+	(6, 'Kurací steak, syrová omáčka, ½ ryža, ½ hranolky', 5.70, 240.00, 'main_dish', '2022-10-23 12:42:51'),
+	(7, 'Mix zeleninový šalát, kuracie stripsy, BBQ dressing,  toust', 5.00, 200.00, 'main_dish', '2022-10-23 12:44:13');
 /*!40000 ALTER TABLE `meals` ENABLE KEYS */;
 
 -- Dumping structure for table edo_food.meals_allergens
@@ -81,25 +78,26 @@ CREATE TABLE IF NOT EXISTS `meals_allergens` (
   KEY `allergen` (`allergen`),
   CONSTRAINT `meals_allergens_allergen` FOREIGN KEY (`allergen`) REFERENCES `allergens` (`id`),
   CONSTRAINT `meals_allergens_meal` FOREIGN KEY (`meal`) REFERENCES `meals` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table edo_food.meals_allergens: ~12 rows (approximately)
+-- Dumping data for table edo_food.meals_allergens: ~0 rows (approximately)
 DELETE FROM `meals_allergens`;
 /*!40000 ALTER TABLE `meals_allergens` DISABLE KEYS */;
 INSERT INTO `meals_allergens` (`id`, `meal`, `allergen`) VALUES
-	(3, 7, 3),
-	(4, 4, 6),
-	(5, 4, 5),
-	(9, 18, 1),
-	(10, 18, 2),
-	(11, 1, 5),
-	(12, 1, 2),
-	(13, 1, 3),
-	(14, 26, 1),
-	(15, 26, 3),
-	(16, 26, 8),
-	(17, 5, 5),
-	(18, 3, 1);
+	(1, 1, 1),
+	(2, 2, 1),
+	(3, 2, 3),
+	(4, 3, 1),
+	(5, 4, 1),
+	(6, 4, 3),
+	(7, 4, 7),
+	(11, 6, 1),
+	(12, 6, 3),
+	(13, 6, 7),
+	(14, 7, 1),
+	(15, 7, 2),
+	(16, 7, 7),
+	(17, 7, 9);
 /*!40000 ALTER TABLE `meals_allergens` ENABLE KEYS */;
 
 -- Dumping structure for table edo_food.menu_items
@@ -110,24 +108,15 @@ CREATE TABLE IF NOT EXISTS `menu_items` (
   PRIMARY KEY (`id`),
   KEY `meal` (`meal`),
   CONSTRAINT `menu_items_meal` FOREIGN KEY (`meal`) REFERENCES `meals` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table edo_food.menu_items: ~12 rows (approximately)
+-- Dumping data for table edo_food.menu_items: ~0 rows (approximately)
 DELETE FROM `menu_items`;
 /*!40000 ALTER TABLE `menu_items` DISABLE KEYS */;
 INSERT INTO `menu_items` (`id`, `meal`, `date`) VALUES
-	(15, 5, '2022-09-26'),
-	(17, 9, '2022-09-28'),
-	(18, 11, '2022-09-28'),
-	(19, 18, '2022-09-28'),
-	(20, 5, '2022-09-28'),
-	(22, 4, '2022-09-29'),
-	(23, 3, '2022-09-29'),
-	(24, 8, '2022-09-29'),
-	(25, 6, '2022-09-29'),
-	(26, 1, '2022-09-28'),
-	(27, 3, '2022-09-28'),
-	(28, 2, '2022-09-29');
+	(1, 1, '2022-10-23'),
+	(2, 4, '2022-10-23'),
+	(3, 7, '2022-10-23');
 /*!40000 ALTER TABLE `menu_items` ENABLE KEYS */;
 
 -- Dumping structure for table edo_food.orders
@@ -142,13 +131,11 @@ CREATE TABLE IF NOT EXISTS `orders` (
   KEY `person` (`person`),
   CONSTRAINT `orders_menu_item` FOREIGN KEY (`menu_item`) REFERENCES `menu_items` (`id`),
   CONSTRAINT `orders_person` FOREIGN KEY (`person`) REFERENCES `people` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table edo_food.orders: ~0 rows (approximately)
 DELETE FROM `orders`;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` (`id`, `menu_item`, `person`, `timestamp`, `valid`) VALUES
-	(5, 22, 123456789, '2022-10-06 18:47:24', 'Y');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 
 -- Dumping structure for table edo_food.people
