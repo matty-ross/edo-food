@@ -60,7 +60,7 @@ foreach ($people as $person)
     echo("</td>\n");
 
     echo("<td>\n");
-    echo("<input type=\"text\" id=\"person-change-password-$id\" placeholder=\"zmeniť heslo...\">\n");
+    echo("<input type=\"text\" id=\"person-change-password-$id\" placeholder=\"nové heslo...\">\n");
     echo("</td>\n");
 
     echo("<td>\n");
