@@ -69,7 +69,7 @@ foreach ($soups as $soup)
     echo("<tr>\n");
     
     echo("<td>\n");
-    echo("<input type=\"text\" id=\"meal-name-$id\" value=\"{$soup['name']}\">\n");
+    echo("<input type=\"text\" id=\"meal-name-$id\" value=\"{$soup['name']}\" size=\"60\">\n");
     echo("</td>\n");
 
     echo("<td>\n");
@@ -95,7 +95,7 @@ foreach ($soups as $soup)
     echo("<button onclick=\"deleteMeal($id)\">Vymazať</button>\n");
     echo("</td>\n");
 
-    echo("<tr>\n");
+    echo("</tr>\n");
 }
 
 ?>
@@ -128,7 +128,7 @@ foreach ($main_dishes as $main_dish)
     echo("<tr>\n");
     
     echo("<td>\n");
-    echo("<input type=\"text\" id=\"meal-name-$id\" value=\"{$main_dish['name']}\">\n");
+    echo("<input type=\"text\" id=\"meal-name-$id\" value=\"{$main_dish['name']}\" size=\"60\">\n");
     echo("</td>\n");
 
     echo("<td>\n");
@@ -154,7 +154,7 @@ foreach ($main_dishes as $main_dish)
     echo("<button onclick=\"deleteMeal($id)\">Vymazať</button>\n");
     echo("</td>\n");
 
-    echo("<tr>\n");
+    echo("</tr>\n");
 }
 
 ?>
@@ -167,6 +167,7 @@ foreach ($main_dishes as $main_dish)
         <tr>
             <th>ID</th>
             <th>Názov</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -183,7 +184,7 @@ foreach ($allergens as $allergen)
     echo("</td>\n");
 
     echo("<td>\n");
-    echo("<input type=\"text\" id=\"allergen-name-$id\" value=\"{$allergen['name']}\">\n");
+    echo("<input type=\"text\" id=\"allergen-name-$id\" value=\"{$allergen['name']}\" size=\"30\">\n");
     echo("</td>\n");
 
     echo("<td>\n");
@@ -191,7 +192,7 @@ foreach ($allergens as $allergen)
     echo("<button onclick=\"deleteAllergen($id)\">Vymazať</button>\n");
     echo("</td>\n");
 
-    echo("<tr>\n");
+    echo("</tr>\n");
 }
 
 ?>

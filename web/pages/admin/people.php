@@ -52,15 +52,15 @@ foreach ($people as $person)
     echo("</td>\n");
 
     echo("<td>\n");
-    echo("<input type=\"text\" id=\"person-full-name-$id\" value=\"{$person['full_name']}\">\n");
+    echo("<input type=\"text\" id=\"person-full-name-$id\" value=\"{$person['full_name']}\" size=\"30\">\n");
     echo("</td>\n");
 
     echo("<td>\n");
-    echo("<input type=\"email\" id=\"person-email-$id\" value=\"{$person['email']}\">\n");
+    echo("<input type=\"email\" id=\"person-email-$id\" value=\"{$person['email']}\" size=\"30\">\n");
     echo("</td>\n");
 
     echo("<td>\n");
-    echo("<input type=\"text\" id=\"person-change-password-$id\" placeholder=\"nové heslo...\">\n");
+    echo("<input type=\"text\" id=\"person-change-password-$id\" placeholder=\"nové heslo...\" size=\"30\">\n");
     echo("</td>\n");
 
     echo("<td>\n");
@@ -78,7 +78,7 @@ foreach ($people as $person)
     echo("<button onclick=\"deletePerson($id)\">Vymazať</button>\n");
     echo("</td>\n");
 
-    echo("<tr>\n");
+    echo("</tr>\n");
 }
 
 ?>

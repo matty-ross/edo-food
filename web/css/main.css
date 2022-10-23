@@ -65,6 +65,14 @@ main {
     padding: 5em;
 }
 
+h1 {
+    font-size: 3em;
+}
+
+hr {
+    border: 1px solid var(--primary-color);
+}
+
 button {
     background-color: var(--secondary-color);
     color: white;
@@ -82,7 +90,6 @@ input[type="checkbox"] {
 
 input {
     font-size: 1em;
-    width: 20em;
 }
 
 #login-form {
@@ -101,4 +108,25 @@ input {
 #login-form div {
     margin: 1em;
     text-align: center;
+}
+
+table, tr, th, td {
+    border-collapse: collapse;
+}
+
+th {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+th, td {
+    padding: 1em;
+    border-top: 1px solid var(--secondary-color);
+    border-bottom: 1px solid var(--secondary-color);
+}
+
+caption {
+    font-weight: bold;
+    font-size: 1.5em;
+    margin-bottom: 1em;
 }

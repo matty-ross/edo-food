@@ -14,10 +14,10 @@
     <body>
         <div id="login-form">
             <div>
-                <input type="email" id="email" placeholder="Email...">
+                <input type="email" id="email" placeholder="Email..." size="30">
             </div>
             <div>
-                <input type="password" id="password" placeholder="Heslo...">
+                <input type="password" id="password" placeholder="Heslo..." size="30">
             </div>
             <input type="hidden" id="goto" value="<?php echo($_GET['goto'] ?? './menu.php'); ?>">
             <div>

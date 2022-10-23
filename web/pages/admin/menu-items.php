@@ -68,7 +68,7 @@ foreach ($menu_soups as $menu_soup)
     echo("<button onclick=\"deleteMenuItem($id)\">Vymazať</button>\n");
     echo("</td>\n");
 
-    echo("<tr>\n");
+    echo("</tr>\n");
 
     ++$i;
 }
