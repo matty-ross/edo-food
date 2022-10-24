@@ -39,6 +39,10 @@ $people = $db->get_people();
         <meta http-equiv="Expires" content="0">
         <link rel="stylesheet" href="./css/main.css">
         <script src="./js/communication.js" defer></script>
+        <script src="./js/apply-chosen.js" defer></script>
+        <link rel="stylesheet" href="./vendor/chosen.min.css">
+        <script src="./vendor/jquery-3.6.1.min.js"></script>
+        <script src="./vendor/chosen.jquery.min.js"></script>
         <title>Edo-Food | Admin</title>
     </head>
     <body>

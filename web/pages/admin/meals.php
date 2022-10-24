@@ -17,7 +17,7 @@
         </select>
     </div>
     <div>
-        <select id="allergens" multiple>
+        <select id="allergens" data-placeholder="Alergény..." multiple>
 <?php
 
 foreach ($allergens as $allergen)
