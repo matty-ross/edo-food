@@ -1,11 +1,16 @@
 jQuery.expr[":"].icontains = function(a, i, m) {
-    return jQuery(a).text().toLowerCase().indexOf(m[3].toLowerCase()) >= 0;
+    return a.textContent.toLowerCase().indexOf(m[3].toLowerCase()) >= 0;
+}
+
+jQuery.expr[":"].vicontains = function(a, i, m) {
+    return a.value.toLowerCase().indexOf(m[3].toLowerCase()) >= 0;
 }
 
 
 $("#meal-type").chosen();
 $("#allergens").chosen();
 $("[id^=meal-allergens-]").chosen();
+$("#meal-id").chosen();
 
 
 function filterTable(tableId, searchQuery) {
@@ -15,7 +20,6 @@ function filterTable(tableId, searchQuery) {
     }
 
     $(`#${tableId} tbody tr`).hide();
-    $(`#${tableId} tbody tr:contains("${searchQuery}")`).show();
-    $(`#${tableId} tbody tr:has("input[value*='${searchQuery}']")`).show();
-    //$(`#${tableId} tbody tr:has("input[value*='${searchQuery}' i]")`).show();
+    $(`#${tableId} tbody tr:icontains("${searchQuery}")`).show();
+    $(`#${tableId} tbody tr:has('input:vicontains("${searchQuery}")')`).show();
 }
