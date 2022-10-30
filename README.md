@@ -12,9 +12,9 @@ Projekt k maturite 2023.
 Na spustenie budete potrebovať webový server, ktorý podporuje PHP, napríklad Apache. Ďalej budete potrebovať databázový server s podporou MariaDB. Ja na testovanie používam server [XAMPP](https://www.apachefriends.org/), ktorý obsahuje všetko potrebné.
 
 ## Testovacie účty
+(doména edofood.com neexistuje 😀)
 - email: **admin@edofood.com** heslo: **admin**
 - email: **tester@edofood.com** heslo: **tester**
-(doména edofood.com neexistuje 😀)
 
 ## Databáza
 Na vytvorenie potrebnej databázy spustite súbor [db.sql](https://github.com/matty-ross/edo-food/blob/main/db.sql) ako SQL príkaz a databáza sa s potrebnými tabuľkami a dátami vytvorí. Pripájanie na databázu prebieha v súbore [/web/functions/db.php](https://github.com/matty-ross/edo-food/blob/main/web/functions/db.php#L12). Tu sa dá zmeniť config, ak máte iné meno alebo heslo.
