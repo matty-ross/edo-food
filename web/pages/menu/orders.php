@@ -1,7 +1,12 @@
 <hr>
-<table>
+<table id="table-orders">
     <caption>Prehľad objednávok obedov</caption>
     <thead>
+        <tr>
+            <th colspan="5">
+                <input type="text" placeholder="filtrovať..." size="50" oninput="filterTable('table-orders', this.value)">
+            </th>
+        </tr>
         <tr>
             <th>Názov jedla</th>
             <th>Cena</th>

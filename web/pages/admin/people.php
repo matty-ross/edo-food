@@ -25,9 +25,14 @@
     </div>
 </div>
 <hr>
-<table>
+<table id="table-people">
     <caption>Prehľad stravníkov</caption>
     <thead>
+        <tr>
+            <th colspan="7">
+                <input type="text" placeholder="filtrovať..." size="50" oninput="filterTable('table-people', this.value)">
+            </th>
+        </tr>
         <tr>
             <th>ID</th>
             <th>Celé meno</th>
@@ -48,7 +53,7 @@ foreach ($people as $person)
     echo("<tr>\n");
     
     echo("<td>\n");
-    echo("<input type=\"number\" id=\"person-id-$id\" value=\"{$person['id']}\">\n");
+    echo("<input type=\"number\" id=\"person-id-$id\" value=\"{$person['id']}\" oninput=\"\">\n");
     echo("</td>\n");
 
     echo("<td>\n");

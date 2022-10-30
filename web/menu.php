@@ -36,6 +36,10 @@ $orders = $db->get_user_orders($logged_in_person['id']);
         <meta http-equiv="Expires" content="0">
         <link rel="stylesheet" href="./css/main.css">
         <script src="./js/communication.js" defer></script>
+        <script src="./js/actions.js" defer></script>
+        <link rel="stylesheet" href="./vendor/chosen.min.css">
+        <script src="./vendor/jquery-3.6.1.min.js"></script>
+        <script src="./vendor/chosen.jquery.min.js"></script>
         <title>Edo-Food | Menu</title>
     </head>
     <body>

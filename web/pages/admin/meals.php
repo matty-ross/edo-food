@@ -43,9 +43,14 @@ foreach ($allergens as $allergen)
     </div>
 </div>
 <hr>
-<table>
+<table id="table-soups">
     <caption>Prehľad polievok</caption>
     <thead>
+        <tr>
+            <th colspan="5">
+                <input type="text" placeholder="filtrovať..." size="50" oninput="filterTable('table-soups', this.value)">
+            </th>
+        </tr>
         <tr>
             <th>Názov polievky</th>
             <th>Cena (&euro;)</th>
@@ -102,9 +107,14 @@ foreach ($soups as $soup)
     </tbody>
 </table>
 <hr>
-<table>
+<table id="table-main-dishes">
     <caption>Prehľad hlavných jedál</caption>
     <thead>
+        <tr>
+            <th colspan="5">
+                <input type="text" placeholder="filtrovať..." size="50" oninput="filterTable('table-main-dishes', this.value)">
+            </th>
+        </tr>
         <tr>
             <th>Názov jedla</th>
             <th>Cena (&euro;)</th>
@@ -161,9 +171,14 @@ foreach ($main_dishes as $main_dish)
     </tbody>
 </table>
 <hr>
-<table>
+<table id="table-allergens">
     <caption>Prehľad alergénov</caption>
     <thead>
+        <tr>
+            <th colspan="3">
+                <input type="text" placeholder="filtrovať..." size="50" oninput="filterTable('table-allergens', this.value)">
+            </th>
+        </tr>
         <tr>
             <th>ID</th>
             <th>Názov</th>
