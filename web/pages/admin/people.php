@@ -1,5 +1,5 @@
 <hr>
-<div id="add-person-form">
+<div id="add-person-form" class="add-item-form">
     <h2>Pridať stravníka</h2>
     <div>
         <input type="number" id="id" placeholder="ID...">

@@ -1,5 +1,5 @@
 <hr>
-<div id="add-meal-form">
+<div id="add-meal-form" class="add-item-form">
     <h2>Pridať jedlo</h2>
     <div>
         <input type="text" id="name" placeholder="Názov...">
@@ -33,7 +33,7 @@ foreach ($allergens as $allergen)
     </div>
 </div>
 <hr>
-<div id="add-allergen-form">
+<div id="add-allergen-form" class="add-item-form">
     <h2>Pridať alergén</h2>
     <div>
         <input type="text" id="allergen-name" placeholder="Názov...">
