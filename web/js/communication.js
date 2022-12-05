@@ -21,14 +21,23 @@ async function sendAndRespond(url, data) {
     }
 }
 
-function login() {
+function loginEmailPassword() {
     const data = {
         email: document.querySelector("#login-form #email").value,
         password: document.querySelector("#login-form #password").value,
         goto: document.querySelector("#login-form #goto").value
     };
 
-    sendAndRespond("./api/login.php", data);
+    sendAndRespond("./api/login_email_password.php", data);
+}
+
+function loginId(id) {
+    const data = {
+        id: id,
+        goto: document.querySelector("#login-form #goto").value
+    };
+
+    sendAndRespond("./api/login_id.php", data);
 }
 
 function logout() {

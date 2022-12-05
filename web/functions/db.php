@@ -11,7 +11,7 @@ class Database
     {
         $host = 'localhost';
         $user = 'root';
-        $password = '';
+        $password = 'root';
         $database = 'edo_food';
         
         $this->db = new mysqli($host, $user, $password, $database);

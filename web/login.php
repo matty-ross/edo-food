@@ -21,8 +21,15 @@
             </div>
             <input type="hidden" id="goto" value="<?php echo($_GET['goto'] ?? './menu.php'); ?>">
             <div>
-                <button onclick="login()">Prihlásiť sa</button>
+                <button onclick="loginEmailPassword()">Prihlásiť sa</button>
             </div>
         </div>
+        <script>
+            const ws = new WebSocket("ws://10.110.1.21:8081");
+            ws.onmessage = (event) => {
+                console.log(event.data);
+                loginId(event.data);
+            }
+        </script>
     </body>
 </html>
