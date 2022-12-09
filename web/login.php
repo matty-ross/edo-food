@@ -1,3 +1,8 @@
+<?php
+
+require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
+
+?>
 <!DOCTYPE html>
 <html lang="sk">
     <head>
@@ -25,10 +30,13 @@
             </div>
         </div>
         <script>
-            const ws = new WebSocket("ws://10.110.1.21:8081");
-            ws.onmessage = (event) => {
-                console.log(event.data);
-                loginId(event.data);
+            {
+                const host = <?php echo($config['ws_host']); ?>;
+                const port = <?php echo($config['ws_port']); ?>;
+                const ws = new WebSocket(`ws://${host}:${port}`);
+                ws.onmessage = (event) => {
+                    loginId(event.data);
+                }
             }
         </script>
     </body>
