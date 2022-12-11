@@ -20,4 +20,10 @@ Na spustenie budete potrebovať webový server, ktorý podporuje PHP, napríklad
 ## Databáza
 Na vytvorenie potrebnej databázy spustite súbor [/db/create.sql](https://github.com/matty-ross/edo-food/blob/main/db/create.sql) ako SQL príkaz a databáza s potrebnými tabuľkami sa vytvorí.
 Na vytvorenie testovacích dát spustite súbor [/db/testing_data.sql](https://github.com/matty-ross/edo-food/blob/main/db/testing_data.sql) ako SQL príkaz a dáta sa vložia do príslušných tabuliek.
-Pripájanie na databázu prebieha v súbore [/web/functions/db.php](https://github.com/matty-ross/edo-food/blob/main/web/functions/db.php#L12). Tu sa dá zmeniť config, ak máte iné meno alebo heslo.
+Konfigurácia na pripojenie k databáze pre webovú aplikáciu je v súbore [/web/config.php](https://github.com/matty-ross/edo-food/blob/main/web/config.php#L3).
+
+## Server
+Na spustenie servera stačí spustiť súbor [/server/main.py](https://github.com/matty-ross/edo-food/blob/main/server/main.py).
+Konfigurácia servera (host, port atď) je v súbore [/server/config.py](https://github.com/matty-ross/edo-food/blob/main/server/config.py).
+Tu je tiež konfigurácia pre čítačky.
+Údaje pre webovú aplikáciu, kde daný server beží sú v súbore [/web/config.php](https://github.com/matty-ross/edo-food/blob/main/web/config.php#L9).
