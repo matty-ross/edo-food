@@ -20,9 +20,9 @@ if (!authentificate_admin($db, './login.php'))
 
 $id = is_valid_number($json->id ?? null) ? $json->id : null;
 $full_name = is_valid_string($json->fullName ?? null) ? $json->fullName : null;
-$email = is_valid_string($json->email ?? null) ? $json->emal : null;
+$email = is_valid_string($json->email ?? null) ? $json->email : null;
 $password = is_valid_string($json->password ?? null) ? $json->password : null;
-$credit = is_valid_number($json->credit ?? null) ? $json->creadit : null;
+$credit = is_valid_number($json->credit ?? null) ? $json->credit : null;
 $admin = is_valid_bool($json->admin ?? null) ? $json->admin : null;
 
 if (

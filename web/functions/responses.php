@@ -13,6 +13,16 @@ function send_response_invalid_email_or_password()
     ]);
 }
 
+function send_response_invalid_id()
+{
+    http_response_code(401);
+    header('Content-Type: application/json');
+
+    send_json_response([
+        'message' => 'Zosnímané ID neexistuje.',
+    ]);
+}
+
 function send_response_not_logged_in($goto = null)
 {
     http_response_code(401);

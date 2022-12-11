@@ -10,14 +10,15 @@ class Database
 
     public function __construct()
     {
+        global $config;
+        
         $host = $config['db_host'];
         $user = $config['db_user'];
         $password = $config['db_password'];
         $database = $config['db_database'];
-        $encoding = $config['db_encoding'];
         
         $this->db = new mysqli($host, $user, $password, $database);
-        $this->db->set_charset($encoding);
+        $this->db->set_charset('utf8mb4');
     }
 
     public function __destruct()

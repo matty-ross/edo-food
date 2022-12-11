@@ -26,16 +26,16 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
             </div>
             <input type="hidden" id="goto" value="<?php echo($_GET['goto'] ?? './menu.php'); ?>">
             <div>
-                <button onclick="loginEmailPassword()">Prihlásiť sa</button>
+                <button onclick="login(null)">Prihlásiť sa</button>
             </div>
         </div>
         <script>
             {
-                const host = <?php echo($config['ws_host']); ?>;
+                const host = "<?php echo($config['ws_host']); ?>";
                 const port = <?php echo($config['ws_port']); ?>;
                 const ws = new WebSocket(`ws://${host}:${port}`);
                 ws.onmessage = (event) => {
-                    loginId(event.data);
+                    login(event.data);
                 }
             }
         </script>

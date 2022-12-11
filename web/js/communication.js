@@ -1,4 +1,10 @@
-async function sendAndRespond(url, data) {
+async function sendAndRespond(url, data, confirmAction = true) {
+    if (confirmAction) {
+        if (!confirm("Potvrďte vykonanie úkonu.")) {
+            return;
+        }
+    }
+    
     let response = null;
     if (data !== null) {
         response = await fetch(url, {
@@ -21,27 +27,19 @@ async function sendAndRespond(url, data) {
     }
 }
 
-function loginEmailPassword() {
+function login(id) {
     const data = {
         email: document.querySelector("#login-form #email").value,
         password: document.querySelector("#login-form #password").value,
-        goto: document.querySelector("#login-form #goto").value
-    };
-
-    sendAndRespond("./api/login_email_password.php", data);
-}
-
-function loginId(id) {
-    const data = {
         id: id,
         goto: document.querySelector("#login-form #goto").value
     };
 
-    sendAndRespond("./api/login_id.php", data);
+    sendAndRespond("./api/login.php", data, false);
 }
 
 function logout() {
-    sendAndRespond("./api/logout.php", null);
+    sendAndRespond("./api/logout.php", null, false);
 }
 
 function addPerson() {
@@ -170,13 +168,11 @@ function deleteMenuItem(id) {
 }
 
 function addOrder(menuItemId) {
-    if (confirm("Naozaj si chcete objednať toto jedlo?")) {
-        const data = {
-            menuItemId: menuItemId
-        };
-    
-        sendAndRespond("./api/menu/add-order.php", data);
-    }
+    const data = {
+        menuItemId: menuItemId
+    };
+
+    sendAndRespond("./api/menu/add-order.php", data);
 }
 
 function deleteOrder(id) {
