@@ -1,15 +1,7 @@
 -- vytvorenie databázy 'edo-food'
 CREATE DATABASE `edo_food`
-    CHARACTER SET='utf8mb4';
+    CHARACTER SET = 'utf8mb4';
 USE `edo_food`;
-
--- alergény
-CREATE TABLE `allergens` (
-    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-    `name` varchar(255) NOT NULL,
-    `last_edit` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-    PRIMARY KEY (`id`)
-);
 
 -- jedlá
 CREATE TABLE `meals` (
@@ -22,6 +14,14 @@ CREATE TABLE `meals` (
     PRIMARY KEY (`id`)
 );
 
+-- alergény
+CREATE TABLE `allergens` (
+    `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+    `name` varchar(255) NOT NULL,
+    `last_edit` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+    PRIMARY KEY (`id`)
+);
+
 -- alergény pre jedlá
 CREATE TABLE `meals_allergens` (
     `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -30,8 +30,23 @@ CREATE TABLE `meals_allergens` (
     PRIMARY KEY (`id`),
     KEY `meal` (`meal`),
     KEY `allergen` (`allergen`),
-    CONSTRAINT `meals_allergens_allergen` FOREIGN KEY (`allergen`) REFERENCES `allergens` (`id`),
     CONSTRAINT `meals_allergens_meal` FOREIGN KEY (`meal`) REFERENCES `meals` (`id`)
+    CONSTRAINT `meals_allergens_allergen` FOREIGN KEY (`allergen`) REFERENCES `allergens` (`id`),
+);
+
+-- ľudia
+CREATE TABLE `people` (
+    `id` int(10) unsigned NOT NULL,
+    `card_id` varchar(10) NOT NULL,
+    `full_name` varchar(255) NOT NULL,
+    `email` varchar(255) NOT NULL,
+    `password` varchar(255) NOT NULL,
+    `credit` decimal(10,2) unsigned NOT NULL DEFAULT 0.00,
+    `admin` enum('Y','N') NOT NULL DEFAULT 'N',
+    `last_edit` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `card_id` (`card_id`)
+    UNIQUE KEY `email` (`email`)
 );
 
 -- položky v menu
@@ -42,19 +57,6 @@ CREATE TABLE `menu_items` (
     PRIMARY KEY (`id`),
     KEY `meal` (`meal`),
     CONSTRAINT `menu_items_meal` FOREIGN KEY (`meal`) REFERENCES `meals` (`id`)
-);
-
--- ľudia
-CREATE TABLE `people` (
-  `id` int(10) unsigned NOT NULL,
-  `full_name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `credit` decimal(10,2) unsigned NOT NULL DEFAULT 0.00,
-  `admin` enum('Y','N') NOT NULL DEFAULT 'N',
-  `last_edit` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`)
 );
 
 -- objednávky
