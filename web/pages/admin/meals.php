@@ -22,7 +22,7 @@
 
 foreach ($allergens as $allergen)
 {
-    echo("<option value=\"{$allergen['id']}\">{$allergen['name']}</option>\n");
+    html_echo("<option value=\"{$allergen['id']}\">{$allergen['name']}</option>\n");
 }
 
 ?>
@@ -71,36 +71,36 @@ foreach ($soups as $soup)
         $soup_allergen_ids[] = $soup_allergen['id'];
     }
     
-    echo("<tr>\n");
+    html_echo("<tr>\n");
     
-    echo("<td>\n");
-    echo("<input type=\"text\" id=\"meal-name-$id\" value=\"{$soup['name']}\" size=\"60\">\n");
-    echo("</td>\n");
+    html_echo("<td>\n");
+    html_echo("<input type=\"text\" id=\"meal-name-$id\" value=\"{$soup['name']}\" size=\"60\">\n");
+    html_echo("</td>\n");
 
-    echo("<td>\n");
-    echo("<input type=\"number\" id=\"meal-price-$id\" value=\"{$soup['price']}\">\n");
-    echo("</td>\n");
+    html_echo("<td>\n");
+    html_echo("<input type=\"number\" id=\"meal-price-$id\" value=\"{$soup['price']}\">\n");
+    html_echo("</td>\n");
 
-    echo("<td>\n");
-    echo("<input type=\"number\" id=\"meal-amount-$id\" value=\"{$soup['amount']}\">\n");
-    echo("</td>\n");
+    html_echo("<td>\n");
+    html_echo("<input type=\"number\" id=\"meal-amount-$id\" value=\"{$soup['amount']}\">\n");
+    html_echo("</td>\n");
 
-    echo("<td>\n");
-    echo("<select id=\"meal-allergens-$id\" multiple>\n");
+    html_echo("<td>\n");
+    html_echo("<select id=\"meal-allergens-$id\" multiple>\n");
     foreach ($allergens as $allergen)
     {
         $selected = in_array($allergen['id'], $soup_allergen_ids) ? 'selected' : '';
-        echo("<option value=\"{$allergen['id']}\" $selected>{$allergen['name']}</option>\n");
+        html_echo("<option value=\"{$allergen['id']}\" $selected>{$allergen['name']}</option>\n");
     }
-    echo("</select>\n");
-    echo("</td>\n");
+    html_echo("</select>\n");
+    html_echo("</td>\n");
 
-    echo("<td>\n");
-    echo("<button onclick=\"updateMeal($id)\">Upraviť</button>\n");
-    echo("<button onclick=\"deleteMeal($id)\">Vymazať</button>\n");
-    echo("</td>\n");
+    html_echo("<td>\n");
+    html_echo("<button onclick=\"updateMeal($id)\">Upraviť</button>\n");
+    html_echo("<button onclick=\"deleteMeal($id)\">Vymazať</button>\n");
+    html_echo("</td>\n");
 
-    echo("</tr>\n");
+    html_echo("</tr>\n");
 }
 
 ?>
@@ -135,36 +135,36 @@ foreach ($main_dishes as $main_dish)
         $main_dish_allergen_ids[] = $main_dish_allergen['id'];
     }
     
-    echo("<tr>\n");
+    html_echo("<tr>\n");
     
-    echo("<td>\n");
-    echo("<input type=\"text\" id=\"meal-name-$id\" value=\"{$main_dish['name']}\" size=\"60\">\n");
-    echo("</td>\n");
+    html_echo("<td>\n");
+    html_echo("<input type=\"text\" id=\"meal-name-$id\" value=\"{$main_dish['name']}\" size=\"60\">\n");
+    html_echo("</td>\n");
 
-    echo("<td>\n");
-    echo("<input type=\"number\" id=\"meal-price-$id\" value=\"{$main_dish['price']}\">\n");
-    echo("</td>\n");
+    html_echo("<td>\n");
+    html_echo("<input type=\"number\" id=\"meal-price-$id\" value=\"{$main_dish['price']}\">\n");
+    html_echo("</td>\n");
 
-    echo("<td>\n");
-    echo("<input type=\"number\" id=\"meal-amount-$id\" value=\"{$main_dish['amount']}\">\n");
-    echo("</td>\n");
+    html_echo("<td>\n");
+    html_echo("<input type=\"number\" id=\"meal-amount-$id\" value=\"{$main_dish['amount']}\">\n");
+    html_echo("</td>\n");
 
-    echo("<td>\n");
-    echo("<select id=\"meal-allergens-$id\" multiple>\n");
+    html_echo("<td>\n");
+    html_echo("<select id=\"meal-allergens-$id\" multiple>\n");
     foreach ($allergens as $allergen)
     {
         $selected = in_array($allergen['id'], $main_dish_allergen_ids) ? 'selected' : '';
-        echo("<option value=\"{$allergen['id']}\" $selected>{$allergen['name']}</option>\n");
+        html_echo("<option value=\"{$allergen['id']}\" $selected>{$allergen['name']}</option>\n");
     }
-    echo("</select>\n");
-    echo("</td>\n");
+    html_echo("</select>\n");
+    html_echo("</td>\n");
 
-    echo("<td>\n");
-    echo("<button onclick=\"updateMeal($id)\">Upraviť</button>\n");
-    echo("<button onclick=\"deleteMeal($id)\">Vymazať</button>\n");
-    echo("</td>\n");
+    html_echo("<td>\n");
+    html_echo("<button onclick=\"updateMeal($id)\">Upraviť</button>\n");
+    html_echo("<button onclick=\"deleteMeal($id)\">Vymazať</button>\n");
+    html_echo("</td>\n");
 
-    echo("</tr>\n");
+    html_echo("</tr>\n");
 }
 
 ?>
@@ -192,22 +192,22 @@ foreach ($allergens as $allergen)
 {
     $id = $allergen['id'];
     
-    echo("<tr>\n");
+    html_echo("<tr>\n");
     
-    echo("<td>\n");
-    echo("{$allergen['id']}\n");
-    echo("</td>\n");
+    html_echo("<td>\n");
+    html_echo("{$allergen['id']}\n");
+    html_echo("</td>\n");
 
-    echo("<td>\n");
-    echo("<input type=\"text\" id=\"allergen-name-$id\" value=\"{$allergen['name']}\" size=\"30\">\n");
-    echo("</td>\n");
+    html_echo("<td>\n");
+    html_echo("<input type=\"text\" id=\"allergen-name-$id\" value=\"{$allergen['name']}\" size=\"30\">\n");
+    html_echo("</td>\n");
 
-    echo("<td>\n");
-    echo("<button onclick=\"updateAllergen($id)\">Upraviť</button>\n");
-    echo("<button onclick=\"deleteAllergen($id)\">Vymazať</button>\n");
-    echo("</td>\n");
+    html_echo("<td>\n");
+    html_echo("<button onclick=\"updateAllergen($id)\">Upraviť</button>\n");
+    html_echo("<button onclick=\"deleteAllergen($id)\">Vymazať</button>\n");
+    html_echo("</td>\n");
 
-    echo("</tr>\n");
+    html_echo("</tr>\n");
 }
 
 ?>

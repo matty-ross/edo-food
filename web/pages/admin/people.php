@@ -50,40 +50,40 @@ foreach ($people as $person)
 {
     $id = $person['id'];
     
-    echo("<tr>\n");
+    html_echo("<tr>\n");
     
-    echo("<td>\n");
-    echo("<input type=\"number\" id=\"person-id-$id\" value=\"{$person['id']}\" oninput=\"\">\n");
-    echo("</td>\n");
+    html_echo("<td>\n");
+    html_echo("<input type=\"number\" id=\"person-id-$id\" value=\"{$person['id']}\" oninput=\"\">\n");
+    html_echo("</td>\n");
 
-    echo("<td>\n");
-    echo("<input type=\"text\" id=\"person-full-name-$id\" value=\"{$person['full_name']}\" size=\"30\">\n");
-    echo("</td>\n");
+    html_echo("<td>\n");
+    html_echo("<input type=\"text\" id=\"person-full-name-$id\" value=\"{$person['full_name']}\" size=\"30\">\n");
+    html_echo("</td>\n");
 
-    echo("<td>\n");
-    echo("<input type=\"email\" id=\"person-email-$id\" value=\"{$person['email']}\" size=\"30\">\n");
-    echo("</td>\n");
+    html_echo("<td>\n");
+    html_echo("<input type=\"email\" id=\"person-email-$id\" value=\"{$person['email']}\" size=\"30\">\n");
+    html_echo("</td>\n");
 
-    echo("<td>\n");
-    echo("<input type=\"text\" id=\"person-change-password-$id\" placeholder=\"nové heslo...\" size=\"30\">\n");
-    echo("</td>\n");
+    html_echo("<td>\n");
+    html_echo("<input type=\"text\" id=\"person-change-password-$id\" placeholder=\"nové heslo...\" size=\"30\">\n");
+    html_echo("</td>\n");
 
-    echo("<td>\n");
-    echo("<div>{$person['credit']} &euro;</div>\n");
-    echo("<input type=\"number\" id=\"person-add-credit-$id\" placeholder=\"pridať krediť...\">\n");
-    echo("</td>\n");
+    html_echo("<td>\n");
+    html_echo("<div>{$person['credit']} &euro;</div>\n");
+    html_echo("<input type=\"number\" id=\"person-add-credit-$id\" placeholder=\"pridať krediť...\">\n");
+    html_echo("</td>\n");
     
-    echo("<td>\n");
+    html_echo("<td>\n");
     $checked = $person['admin'] === 'Y' ? 'checked' : '';
-    echo("<input type=\"checkbox\" id=\"person-admin-$id\" $checked>\n");
-    echo("</td>\n");
+    html_echo("<input type=\"checkbox\" id=\"person-admin-$id\" $checked>\n");
+    html_echo("</td>\n");
 
-    echo("<td>\n");
-    echo("<button onclick=\"updatePerson($id)\">Upraviť</button>\n");
-    echo("<button onclick=\"deletePerson($id)\">Vymazať</button>\n");
-    echo("</td>\n");
+    html_echo("<td>\n");
+    html_echo("<button onclick=\"updatePerson($id)\">Upraviť</button>\n");
+    html_echo("<button onclick=\"deletePerson($id)\">Vymazať</button>\n");
+    html_echo("</td>\n");
 
-    echo("</tr>\n");
+    html_echo("</tr>\n");
 }
 
 ?>

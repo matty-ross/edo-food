@@ -66,6 +66,25 @@ class Database
         return intval($row['count']) === 1;
     }
 
+    public function get_user_id_by_card_id($card_id)
+    {
+        $card_id = $this->db->real_escape_string($card_id);
+
+        $query =
+        "SELECT
+            `people`.`id` AS `id`
+        FROM `people`
+        WHERE
+            TRIM(`people`.`card_id`) = TRIM('$card_id')
+        ;";
+
+        $q = $this->db->query($query);
+        $row = $q->fetch_assoc();
+        $q->free_result();
+
+        return $row['id'] ?? null;
+    }
+
     public function is_user_admin($user_id)
     {
         $user_id = $this->db->real_escape_string($user_id);
@@ -581,9 +600,99 @@ class Database
         return $this->db->query($query);
     }
 
+    public function get_user_credit($user_id)
+    {
+        $user_id = $this->db->real_escape_string($user_id);
+
+        $query =
+        "SELECT
+            `people`.`credit` AS `credit`
+        FROM `people`
+        WHERE
+            `people`.`id` = $user_id
+        ;";
+
+        $q = $this->db->query($query);
+        $row = $q->fetch_assoc();
+        $q->free_result();
+
+        return $row['credit'];
+    }
+
+    public function substract_user_credit($user_id, $credit)
+    {
+        $user_id = $this->db->real_escape_string($user_id);
+        $credit = $this->db->real_escape_string($credit);
+
+        $query =
+        "UPDATE `people`
+        SET
+            `people`.`credit` = `people`.`credit` - $credit
+        WHERE
+            `people`.`id` = $user_id
+        ;";
+
+        return $this->db->query($query);
+    }
+
+    public function add_user_credit($user_id, $credit)
+    {
+        $user_id = $this->db->real_escape_string($user_id);
+        $credit = $this->db->real_escape_string($credit);
+
+        $query =
+        "UPDATE `people`
+        SET
+            `people`.`credit` = `people`.`credit` + $credit
+        WHERE
+            `people`.`id` = $user_id
+        ;";
+
+        return $this->db->query($query);
+    }
+
+    public function get_menu_item_price($menu_item_id)
+    {
+        $menu_item_id = $this->db->real_escape_string($menu_item_id);
+
+        $query =
+        "SELECT
+            `meals`.`price` AS `price`
+        FROM `meals`
+            JOIN `menu_items` ON (`menu_items`.`meal` = `meals`.`id`)
+        WHERE
+            `menu_items`.`id` = $menu_item_id
+        ;";
+
+        $q = $this->db->query($query);
+        $row = $q->fetch_assoc();
+        $q->free_result();
+
+        return $row['price'];
+    }
+
+    public function get_order_menu_item($order_id)
+    {
+        $order_id = $this->db->real_escape_string($order_id);
+
+        $query =
+        "SELECT
+            `orders`.`menu_item` AS `menu_item`
+        FROM `orders`
+        WHERE
+            `orders`.`id` = $order_id
+        ;";
+
+        $q = $this->db->query($query);
+        $row = $q->fetch_assoc();
+        $q->free_result();
+
+        return $row['menu_item'];
+    }
+
     public function get_user_orders($user_id, $date = null, $only_valid = true)
     {
-        $user_id = $this->db->real_escape_string($user_id);        
+        $user_id = $this->db->real_escape_string($user_id);
         
         $query =
         "SELECT

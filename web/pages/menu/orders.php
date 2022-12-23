@@ -22,18 +22,18 @@ foreach ($orders as $order)
 {
     $id = $order['id'];
     
-    echo("<tr>\n");
+    html_echo("<tr>\n");
 
-    echo("<td>{$order['meal_name']}</td>\n");
-    echo("<td>{$order['meal_price']} &euro;</td>\n");
-    echo("<td>{$order['menu_idem_date']}</td>\n");
-    echo("<td>{$order['timestamp']}</td>\n");
+    html_echo("<td>{$order['meal_name']}</td>\n");
+    html_echo("<td>{$order['meal_price']} &euro;</td>\n");
+    html_echo("<td>{$order['menu_idem_date']}</td>\n");
+    html_echo("<td>{$order['timestamp']}</td>\n");
 
-    echo("<td>\n");
-    echo("<button onclick=\"deleteOrder($id)\">Vymazať</button>\n");
-    echo("</td>\n");
+    html_echo("<td>\n");
+    html_echo("<button onclick=\"deleteOrder($id)\">Vymazať</button>\n");
+    html_echo("</td>\n");
 
-    echo("</tr>\n");
+    html_echo("</tr>\n");
 }
 
 ?>

@@ -30,7 +30,19 @@ if (
     die;
 }
 
-if ($db->add_order($menu_item_id, $user_id))
+$menu_item_price = $db->get_menu_item_price($menu_item_id);
+$user_credit = $db->get_user_credit($user_id);
+
+if ($user_credit < $menu_item_price)
+{
+    send_response_not_enough_credit();
+    die;
+}
+
+if (
+    $db->add_order($menu_item_id, $user_id) &&
+    $db->substract_user_credit($user_id, $menu_item_price)
+)
 {
     send_response_action_success();
 }

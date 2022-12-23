@@ -19,7 +19,7 @@ function send_response_invalid_id()
     header('Content-Type: application/json');
 
     send_json_response([
-        'message' => 'Zosnímané ID neexistuje.',
+        'message' => 'Stravník so zadaným ID neexistuje.',
     ]);
 }
 
@@ -83,6 +83,16 @@ function send_response_not_owning_order()
 
     send_json_response([
         'message' => 'Objednávka nepatrí vám.',
+    ]);
+}
+
+function send_response_not_enough_credit()
+{
+    http_response_code(403);
+    header('Content-Type: application/json');
+
+    send_json_response([
+        'message' => 'Nemáte dostatok kreditu.',
     ]);
 }
 

@@ -1,6 +1,7 @@
 <?php
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/functions/utility.php';
 
 ?>
 <!DOCTYPE html>
@@ -24,15 +25,15 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/config.php';
             <div>
                 <input type="password" id="password" placeholder="Heslo..." size="30">
             </div>
-            <input type="hidden" id="goto" value="<?php echo($_GET['goto'] ?? './menu.php'); ?>">
+            <input type="hidden" id="goto" value="<?php html_echo($_GET['goto'] ?? './menu.php'); ?>">
             <div>
                 <button onclick="login(null)">Prihlásiť sa</button>
             </div>
         </div>
         <script>
             {
-                const host = "<?php echo($config['ws_host']); ?>";
-                const port = <?php echo($config['ws_port']); ?>;
+                const host = "<?php html_echo($config['ws_host']); ?>";
+                const port = <?php html_echo($config['ws_port']); ?>;
                 const ws = new WebSocket(`ws://${host}:${port}`);
                 ws.onmessage = (event) => {
                     login(event.data);

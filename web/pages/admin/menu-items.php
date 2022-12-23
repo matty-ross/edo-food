@@ -1,7 +1,7 @@
 <hr>
 <div>
     <form method="get">
-        <input type="date" id="date" name="date" value="<?php echo($date); ?>" oninput="this.form.submit()">
+        <input type="date" id="date" name="date" value="<?php html_echo($date); ?>" oninput="this.form.submit()">
         <input type="hidden" name="page" value="menu-items">
     </form>
 </div>
@@ -14,11 +14,11 @@
 
 foreach ($soups as $soup)
 {
-    echo("<option value=\"{$soup['id']}\">{$soup['name']}</option>\n");
+    html_echo("<option value=\"{$soup['id']}\">{$soup['name']}</option>\n");
 }
 foreach ($main_dishes as $main_dish)
 {
-    echo("<option value=\"{$main_dish['id']}\">{$main_dish['name']}</option>\n");
+    html_echo("<option value=\"{$main_dish['id']}\">{$main_dish['name']}</option>\n");
 }
 
 ?>
@@ -49,12 +49,12 @@ foreach ($menu_soups as $menu_soup)
 {
     $id = $menu_soup['id'];
 
-    echo("<tr>\n");
+    html_echo("<tr>\n");
 
-    echo("<td>$i</td>\n");
-    echo("<td>{$menu_soup['meal_name']}</td>\n");
-    echo("<td>{$menu_soup['meal_amount']} l</td>\n");
-    echo("<td>{$menu_soup['meal_price']} &euro;</td>\n");
+    html_echo("<td>$i</td>\n");
+    html_echo("<td>{$menu_soup['meal_name']}</td>\n");
+    html_echo("<td>{$menu_soup['meal_amount']} l</td>\n");
+    html_echo("<td>{$menu_soup['meal_price']} &euro;</td>\n");
 
     $allergens = [];
     foreach ($menu_soup['meal_allergens'] as $allergen)
@@ -62,13 +62,13 @@ foreach ($menu_soups as $menu_soup)
         $allergens[] = $allergen['name'];
     }
     $allergens = implode(', ', $allergens);
-    echo("<td>$allergens</td>\n");
+    html_echo("<td>$allergens</td>\n");
     
-    echo("<td>\n");
-    echo("<button onclick=\"deleteMenuItem($id)\">Vymazať</button>\n");
-    echo("</td>\n");
+    html_echo("<td>\n");
+    html_echo("<button onclick=\"deleteMenuItem($id)\">Vymazať</button>\n");
+    html_echo("</td>\n");
 
-    echo("</tr>\n");
+    html_echo("</tr>\n");
 
     ++$i;
 }
@@ -97,12 +97,12 @@ foreach ($menu_main_dishes as $menu_main_dish)
 {
     $id = $menu_main_dish['id'];
     
-    echo("<tr>\n");
+    html_echo("<tr>\n");
 
-    echo("<td>$i</td>\n");
-    echo("<td>{$menu_main_dish['meal_name']}</td>\n");
-    echo("<td>{$menu_main_dish['meal_amount']} g</td>\n");
-    echo("<td>{$menu_main_dish['meal_price']} &euro;</td>\n");
+    html_echo("<td>$i</td>\n");
+    html_echo("<td>{$menu_main_dish['meal_name']}</td>\n");
+    html_echo("<td>{$menu_main_dish['meal_amount']} g</td>\n");
+    html_echo("<td>{$menu_main_dish['meal_price']} &euro;</td>\n");
 
     $allergens = [];
     foreach ($menu_main_dish['meal_allergens'] as $allergen)
@@ -110,13 +110,13 @@ foreach ($menu_main_dishes as $menu_main_dish)
         $allergens[] = $allergen['name'];
     }
     $allergens = implode(', ', $allergens);
-    echo("<td>$allergens</td>\n");
+    html_echo("<td>$allergens</td>\n");
 
-    echo("<td>\n");
-    echo("<button onclick=\"deleteMenuItem($id)\">Vymazať</button>\n");
-    echo("</td>\n");
+    html_echo("<td>\n");
+    html_echo("<button onclick=\"deleteMenuItem($id)\">Vymazať</button>\n");
+    html_echo("</td>\n");
 
-    echo("<tr>\n");
+    html_echo("<tr>\n");
 
     ++$i;
 }

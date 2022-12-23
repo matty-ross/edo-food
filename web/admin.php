@@ -1,5 +1,6 @@
 <?php
 
+require_once $_SERVER['DOCUMENT_ROOT'] . '/functions/utility.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/functions/db.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/functions/authentification.php';
 
@@ -48,8 +49,8 @@ $people = $db->get_people();
     <body>
         <div class="user-info">
             <span>
-                <p><?php echo($logged_in_person['full_name']); ?></p>
-                <p><?php echo($logged_in_person['email']); ?></p>
+                <p><?php html_echo($logged_in_person['full_name']); ?></p>
+                <p><?php html_echo($logged_in_person['email']); ?></p>
             </span>
             <span>
                 <button onclick="logout()">Odhlásiť sa</button>

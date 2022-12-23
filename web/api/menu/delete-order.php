@@ -36,7 +36,13 @@ if (!$db->order_belongs_to_user($id, $user_id))
     die;
 }
 
-if ($db->delete_order($id))
+$menu_item_id = $db->get_order_menu_item($id);
+$menu_item_price = $db->get_menu_item_price($menu_item_id);
+
+if (
+    $db->delete_order($id) &&
+    $db->add_user_credit($user_id, $menu_item_price)
+)
 {
     send_response_action_success();
 }

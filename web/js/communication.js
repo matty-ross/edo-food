@@ -27,11 +27,11 @@ async function sendAndRespond(url, data, confirmAction = true) {
     }
 }
 
-function login(id) {
+function login(cardId) {
     const data = {
         email: document.querySelector("#login-form #email").value,
         password: document.querySelector("#login-form #password").value,
-        id: id,
+        cardId: cardId,
         goto: document.querySelector("#login-form #goto").value
     };
 

@@ -14,11 +14,11 @@ $json = get_json_request();
 
 $email = is_valid_string($json->email ?? null) ? $json->email : null;
 $password = is_valid_string($json->password ?? null) ? $json->password : null;
-$id = is_valid_number($json->id ?? null) ? $json->id : null;
+$card_id = is_valid_number($json->cardId ?? null) ? $json->cardId : null;
 $goto = is_valid_string($json->goto ?? null) ? $json->goto : './menu.php';
 
 if (
-    $id === null &&
+    $card_id === null &&
     ($email === null ||
     $password === null)
 )
@@ -29,15 +29,12 @@ if (
 
 $user_id = null;
 
-if ($id !== null)
+if ($card_id !== null)
 {
-    if (!$db->is_valid_user_id($id))
+    $user_id = $db->get_user_id_by_card_id($card_id);
+    if ($user_id === null)
     {
         send_response_invalid_id();
-    }
-    else
-    {
-        $user_id = $id;
     }
 }
 else
