@@ -1,9 +1,47 @@
+import json
+
 from manager_wifi import ManagerWifi
 from manager_lcd import ManagerLcd
 from manager_server import ManagerServer
 
 
-def main():
+"""
+
+{
+    "orders": {
+        "0": {
+            "id": "2",
+            "menu_item_id": "3",
+            "timestamp": "2022-10-23 19:51:29",
+            "menu_idem_date": "2022-10-23",
+            "meal_id": "7",
+            "meal_name": "Mix zeleninov\u00fd \u0161al\u00e1t, kuracie stripsy, BBQ dressing,  toust",
+            "meal_price":" 5.00"
+        },
+        "1": {
+            "id": "1",
+            "menu_item_id": "1",
+            "timestamp": "2022-10-23 19:51:26",
+            "menu_idem_date": "2022-10-23",
+            "meal_id": "1",
+            "meal_name": "Hrachov\u00fd kr\u00e9m, klob\u00e1ska, 1 ks chlieb",
+            "meal_price":
+            "0.00"
+        }
+    }
+}
+
+"""
+
+
+def parse_payload(payload: str) -> list:
+    orders = json.loads(payload).get("orders")
+    if not orders:
+        return []
+    return orders.values()
+
+
+def main() -> None:
     manager_wifi = ManagerWifi()
     manager_lcd = ManagerLcd()
     manager_server = ManagerServer()
@@ -29,6 +67,15 @@ def main():
         manager_lcd.clear_display()
         manager_lcd.display_string_row_alignment("cakam na cipnutie", 1, "c")
         payload = manager_server.recv_payload()
+        manager_lcd.clear_display()
+        orders = parse_payload(payload)
+        for order in orders:
+            row = order.get("id")
+            menu_item_id = order.get("menu_item_id")
+            meal_name = order.get("meal_name")
+            manager_lcd.display_string_row_alignment(
+                f"{menu_item_id}: {meal_name}", row, "l"
+            )
 
 
 if __name__ == "__main__":
